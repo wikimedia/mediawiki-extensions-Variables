@@ -5,6 +5,7 @@
    - Cleanup for use with more current MW versions:
      + 'ParserFirstCallInit' hook in use and no more global extension functions.
      + State of the Art internationalization files added.
+   - 'ExtVariables::VARIABLES' constant with version info added.
    - Put into mediawiki.org svn, 'RELEASE-NOTES' and 'README' files added.
  
  
