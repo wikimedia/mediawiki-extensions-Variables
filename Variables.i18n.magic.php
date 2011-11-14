@@ -15,6 +15,7 @@ $magicWords = array();
 
 $magicWords['en'] = array(
 	'var'           => array( 0, 'var' ),
+	'var_final'     => array( 0, 'var_final' ),
 	'vardefine'     => array( 0, 'vardefine' ),
 	'vardefineecho' => array( 0, 'vardefineecho' ),
 	'varexists'     => array( 0, 'varexists' ),
