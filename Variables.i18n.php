@@ -1,6 +1,4 @@
 <?php
-#coding: utf-8
-
 /**
  * Internationalization file of the 'Variables' extension.
  *
@@ -26,3 +24,4 @@ $messages['en'] = array(
 $messages['de'] = array(
 	'variables-desc' => 'Bietet Parser-Funktionen zur Verwendung dynamischer Variablen in Wiki-Artikeln',
 );
+
