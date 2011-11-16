@@ -1,7 +1,7 @@
  svn era Changelog:
  ==================
  
- * (trunk) -- Version 2.0rc by Daniel Werner
+ * November 16, 2010 -- Version 2.0 by Daniel Werner
    Version 2.0 almost is a complete rewrite of the extension, just the idea remains the
    same. It's the attempt to get rid of several bugs caused by the fact that MediaWiki
    is using several Parser objects. Therefore in v2 each Parser has its own Variables
@@ -15,7 +15,7 @@
      using Parser::parse() recursivelly in any way (which should never be done!).
    - For MW 1.12 and later, '#var' default value no longer gets expanded when not needed.
    - Experimental new function '#var_final' which allows to insert the variables final
-     (last) value.
+     (last) value after page processing is almost through.
    - Global configuration variable '$egVariablesDisabledFunctions' added.
 
    Internal changes:

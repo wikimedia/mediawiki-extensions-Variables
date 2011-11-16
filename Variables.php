@@ -11,7 +11,7 @@
  * Support:       http://www.mediawiki.org/wiki/Extension_talk:Variables
  * Source code:   http://svn.wikimedia.org/viewvc/mediawiki/trunk/extensions/Variables
  * 
- * @version: 2.0rc
+ * @version: 2.0
  * @license: ISC License
  * @author: Rob Adams
  * @author: Tom Hempel
@@ -60,7 +60,7 @@ class ExtVariables {
 	 * 
 	 * @var string
 	 */
-	const VERSION = '2.0rc';
+	const VERSION = '2.0';
 	
 	/**
 	 * Internal store for variable values
@@ -299,15 +299,14 @@ class ExtVariables {
 	}
 	
 	/**
-	 * Defines a variable, accessible by getVarValue() or '#var' parser function
+	 * Defines a variable, accessible by getVarValue() or '#var' parser function. Name and
+	 * value will be trimmed and converted to string.
 	 * 
 	 * @param string $varName
 	 * @param string $value will be converted to string if no string is given
 	 */
 	public function setVarValue( $varName, $value = '' ) {
-		$varName = trim( $varName );
-		$value = trim( $value );
-		$this->mVariables[ $varName ] = $value;
+		$this->mVariables[ trim( $varName ) ] = trim( $value );
 	}
 	
 	/**
