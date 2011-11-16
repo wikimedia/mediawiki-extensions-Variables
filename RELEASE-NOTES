@@ -31,7 +31,13 @@
    - Put under 'ISC License' (public domain before).
    - In case you are using Extension:Loops, you should update it as well to remain compatbility.
 
+   
+ * November 14, 2011 -- Version 1.3.1.1 (re-pack of 1.3.1 tagged version for svn)
+   - Although 1.4 is released already and 2.0 in the trunk, ensure one last version
+     compatible with MW < 1.12 still is available
+   - Some comments cleaned, 'RELEASE-NOTES' and 'README' files added.
 
+   
  * November 13, 2011 -- Version 1.4 by Daniel Werner
    - Cleanup for use with more current MW versions:
      + 'ParserFirstCallInit' hook in use and no more global extension functions.
