@@ -25,11 +25,25 @@ $messages['de'] = array(
 	'variables-desc' => 'Bietet Parser-Funktionen zur Verwendung dynamischer Variablen in Wiki-Artikeln',
 );
 
+/** French (Français)
+ * @author DavidL
+ */
+$messages['fr'] = array(
+	'variables-desc' => "Fonctions de l'interpréteur permettant de travailler avec les variables dynamiques dans le contexte d'un article",
+);
+
 /** Galician (Galego)
  * @author Toliño
  */
 $messages['gl'] = array(
 	'variables-desc' => 'Funcións analíticas destinadas aos artigos que permiten traballar con variables dinámicas',
+);
+
+/** Interlingua (Interlingua)
+ * @author McDutchie
+ */
+$messages['ia'] = array(
+	'variables-desc' => 'Functiones del analysator syntactic que permitte laborar con variabiles dynamic in un "article scoped context"',
 );
 
 /** Macedonian (Македонски)
