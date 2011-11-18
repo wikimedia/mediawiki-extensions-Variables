@@ -39,6 +39,13 @@ $messages['gl'] = array(
 	'variables-desc' => 'Funcións analíticas destinadas aos artigos que permiten traballar con variables dinámicas',
 );
 
+/** Upper Sorbian (Hornjoserbsce)
+ * @author Michawiki
+ */
+$messages['hsb'] = array(
+	'variables-desc' => 'Parserowe funkcije, kotre dźěłanje z dynamiskimi wariablemi w nastawkach dowoleja',
+);
+
 /** Interlingua (Interlingua)
  * @author McDutchie
  */
