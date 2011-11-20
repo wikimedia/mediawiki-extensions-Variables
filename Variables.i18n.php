@@ -18,6 +18,13 @@ $messages['en'] = array(
 	'variables-desc' => 'Parser functions allowing to work with dynamic variables in an article scoped context',
 );
 
+/** Asturian (Asturianu)
+ * @author Xuacu
+ */
+$messages['ast'] = array(
+	'variables-desc' => "Funciones analítiques que permiten trabayar con variables dinámiques nun contestu d'artículu",
+);
+
 /** German (Deutsch)
  * @author Daniel Werner
  */
@@ -65,5 +72,12 @@ $messages['mk'] = array(
  */
 $messages['ms'] = array(
 	'variables-desc' => 'Fungsi-fungsi penghurai yang membenarkan kerja dengan pembolehubah dinamk dalam konteks berskop rencana',
+);
+
+/** Dutch (Nederlands)
+ * @author Saruman
+ */
+$messages['nl'] = array(
+	'variables-desc' => 'Parserfuncties die het mogelijk maken om met dynamische variabelen te werken in een paginacontext',
 );
 
