@@ -60,6 +60,13 @@ $messages['ia'] = array(
 	'variables-desc' => 'Functiones del analysator syntactic que permitte laborar con variabiles dynamic in un "article scoped context"',
 );
 
+/** Japanese (日本語)
+ * @author Fryed-peach
+ */
+$messages['ja'] = array(
+	'variables-desc' => '記事をスコープとするコンテキストで動的変数を利用可能にするパーサー関数',
+);
+
 /** Macedonian (Македонски)
  * @author Bjankuloski06
  */
