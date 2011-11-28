@@ -3,9 +3,6 @@
 /**
  * 'Variables' introduces parser functions for defining page-scoped variables within
  * wiki pages.
- * Version 2.0 is a major re-write of the extension by Daniel Werner, as attempt to
- * get rid of any problems related to the fact that there are multiple Parser instances
- * for which 'Variables' extension should bring separate variable stores.
  * 
  * Documentation: http://www.mediawiki.org/wiki/Extension:Variables
  * Support:       http://www.mediawiki.org/wiki/Extension_talk:Variables
@@ -22,7 +19,7 @@
  * @ingroup Variables
  */
 
-if ( ! defined( 'MEDIAWIKI' ) ) { die( ); }
+if ( ! defined( 'MEDIAWIKI' ) ) { die(); }
  
 $wgExtensionCredits['parserhook'][] = array(
 	'path'           => __FILE__,
@@ -251,9 +248,8 @@ class ExtVariables {
 		 * MessageCaches Parser clone will mess things up if we don't reset the entire object.
 		 * Only resetting the array would unset it in the original object as well! This instead
 		 * will break the entire reference to the object
-		 */			
+		 */
 		$parser->mExtVariables = new self();
-			
 		return true;
 	}
 	
@@ -282,17 +278,17 @@ class ExtVariables {
 	#
 	# public non-parser functions, accessible for
 	# other extensions doing interactive stuff
-	# with variables (like Extension:Loops)
+	# with 'Variables' (like Extension:Loops)
 	#
 	
 	/**
-	 * Convenience function to return the variables extensions variables store connected
+	 * Convenience function to return the 'Variables' extensions variables store connected
 	 * to a certain Parser object. Each parser has its own store which will be reset after
 	 * a parsing process [Parser::parse()] has finished.
 	 * 
 	 * @param Parser &$parser
 	 * 
-	 * @return ExtVariables by reference so we still have the right objecdt after 'ParserClearState'
+	 * @return ExtVariables by reference so we still have the right object after 'ParserClearState'
 	 */
 	public static function &get( Parser &$parser ) {
 		return $parser->mExtVariables;
@@ -358,6 +354,7 @@ class ExtVariables {
 	 * @param Parser $parser
 	 * @param string $varName
 	 * @param string $defaultVal
+	 *
 	 * @return string strip-item
 	 */
 	function requestFinalizedVar( Parser &$parser, $varName, $defaultVal = '' ) {
