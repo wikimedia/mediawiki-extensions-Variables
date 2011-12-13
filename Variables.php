@@ -27,7 +27,7 @@ $wgExtensionCredits['parserhook'][] = array(
 	'descriptionmsg' => 'variables-desc',
 	'version'        => ExtVariables::VERSION,
 	'author'         => array( 'Rob Adams', 'Tom Hempel', 'Xiloynaha', '[http://www.mediawiki.org/wiki/User:Danwe Daniel Werner]' ),
-	'url'            => 'http://www.mediawiki.org/wiki/Extension:Variables',
+	'url'            => 'https://www.mediawiki.org/wiki/Extension:Variables',
 );
 
 // language files:
