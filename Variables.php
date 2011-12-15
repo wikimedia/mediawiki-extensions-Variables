@@ -4,9 +4,9 @@
  * 'Variables' introduces parser functions for defining page-scoped variables within
  * wiki pages.
  * 
- * Documentation: http://www.mediawiki.org/wiki/Extension:Variables
- * Support:       http://www.mediawiki.org/wiki/Extension_talk:Variables
- * Source code:   http://svn.wikimedia.org/viewvc/mediawiki/trunk/extensions/Variables
+ * Documentation: https://www.mediawiki.org/wiki/Extension:Variables
+ * Support:       https://www.mediawiki.org/wiki/Extension_talk:Variables
+ * Source code:   https://svn.wikimedia.org/viewvc/mediawiki/trunk/extensions/Variables
  * 
  * @version: 2.0
  * @license: ISC License
@@ -26,7 +26,7 @@ $wgExtensionCredits['parserhook'][] = array(
 	'name'           => 'Variables',
 	'descriptionmsg' => 'variables-desc',
 	'version'        => ExtVariables::VERSION,
-	'author'         => array( 'Rob Adams', 'Tom Hempel', 'Xiloynaha', '[http://www.mediawiki.org/wiki/User:Danwe Daniel Werner]' ),
+	'author'         => array( 'Rob Adams', 'Tom Hempel', 'Xiloynaha', '[https://www.mediawiki.org/wiki/User:Danwe Daniel Werner]' ),
 	'url'            => 'https://www.mediawiki.org/wiki/Extension:Variables',
 );
 

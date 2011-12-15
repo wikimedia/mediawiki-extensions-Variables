@@ -1,6 +1,9 @@
  svn era Changelog:
  ==================
  
+ * (trunk) -- Version 2.0.1
+   - Localization added for various languages.
+ 
  * November 16, 2010 -- Version 2.0 by Daniel Werner
    Version 2.0 almost is a complete rewrite of the extension, just the idea remains the
    same. It's the attempt to get rid of several bugs caused by the fact that MediaWiki
@@ -54,7 +57,7 @@
  give an almost complete overview of all major releases of 'Variables' extension.
  All changes can still be retrace at
  
- http://www.mediawiki.org/w/index.php?title=Extension:VariablesExtension&action=history 
+ https://www.mediawiki.org/w/index.php?title=Extension:VariablesExtension&action=history 
  
  * July 20, 2010 -- Version 1.3 by Daniel Werner
    - Removed critical bug. Some kind of "Superglobal" variables. In some cases values
