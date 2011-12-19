@@ -18,6 +18,13 @@ $messages['en'] = array(
 	'variables-desc' => 'Parser functions allowing to work with dynamic variables in an article scoped context',
 );
 
+/** Message documentation (Message documentation)
+ * @author Purodha
+ */
+$messages['qqq'] = array(
+	'variables-desc' => '{{desc}}',
+);
+
 /** Asturian (Asturianu)
  * @author Xuacu
  */
@@ -65,6 +72,13 @@ $messages['ia'] = array(
  */
 $messages['ja'] = array(
 	'variables-desc' => '記事をスコープとするコンテキストで動的変数を利用可能にするパーサー関数',
+);
+
+/** Colognian (Ripoarisch)
+ * @author Purodha
+ */
+$messages['ksh'] = array(
+	'variables-desc' => 'Paaser-Funxjuhne för dynaamesch Varijable em Zusammehang met Atikelle.',
 );
 
 /** Macedonian (Македонски)
