@@ -53,6 +53,13 @@ $messages['gl'] = array(
 	'variables-desc' => 'Funcións analíticas destinadas aos artigos que permiten traballar con variables dinámicas',
 );
 
+/** Hebrew (עברית)
+ * @author Amire80
+ */
+$messages['he'] = array(
+	'variables-desc' => 'פונקציות מפענח שמאפשרות עבודה עם משתנים דינמיים בהקשר בתחום של ערך',
+);
+
 /** Upper Sorbian (Hornjoserbsce)
  * @author Michawiki
  */
