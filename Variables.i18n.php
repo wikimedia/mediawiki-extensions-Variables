@@ -109,3 +109,10 @@ $messages['nl'] = array(
 	'variables-desc' => 'Parserfuncties die het mogelijk maken om met dynamische variabelen te werken in een paginacontext',
 );
 
+/** Piedmontese (Piemontèis)
+ * @author Dragonòt
+ */
+$messages['pms'] = array(
+	'variables-desc' => "Funsion ëd parser ch'a përmëtto ëd travajé con variàbij dinàmiche ant ël contest ëd n'artìcol",
+);
+
