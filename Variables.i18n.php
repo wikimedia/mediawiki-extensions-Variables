@@ -110,9 +110,10 @@ $messages['nl'] = array(
 );
 
 /** Piedmontese (Piemontèis)
+ * @author Borichèt
  * @author Dragonòt
  */
 $messages['pms'] = array(
-	'variables-desc' => "Funsion ëd parser ch'a përmëtto ëd travajé con variàbij dinàmiche ant ël contest ëd n'artìcol",
+	'variables-desc' => "Funsion ëd l'analisator ch'a përmëtto ëd travajé con le variàbij dinàmiche ant ël contest ëd n'artìcol",
 );
 
