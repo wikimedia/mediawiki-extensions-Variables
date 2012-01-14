@@ -39,6 +39,13 @@ $messages['de'] = array(
 	'variables-desc' => 'Bietet Parser-Funktionen zur Verwendung dynamischer Variablen in Wiki-Artikeln',
 );
 
+/** Lower Sorbian (Dolnoserbski)
+ * @author Michawiki
+ */
+$messages['dsb'] = array(
+	'variables-desc' => 'Parserowe funkcije, kótarež dowóluju źěłanje z dynamiskimi wariablami w nastawkach',
+);
+
 /** French (Français)
  * @author DavidL
  */
