@@ -32,6 +32,13 @@ $messages['ast'] = array(
 	'variables-desc' => "Funciones analítiques que permiten trabayar con variables dinámiques nun contestu d'artículu",
 );
 
+/** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
+ * @author Wizardist
+ */
+$messages['be-tarask'] = array(
+	'variables-desc' => 'Функцыі парсэра для працы са зьменнымі ў кантэксьце артыкулаў',
+);
+
 /** German (Deutsch)
  * @author Daniel Werner
  */
