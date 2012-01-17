@@ -33,10 +33,11 @@ $messages['ast'] = array(
 );
 
 /** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
+ * @author Jim-by
  * @author Wizardist
  */
 $messages['be-tarask'] = array(
-	'variables-desc' => 'Функцыі парсэра для працы са зьменнымі ў кантэксьце артыкулаў',
+	'variables-desc' => 'Функцыі парсэра для працы з дынамічнымі зьменнымі ў кантэксьце артыкулаў',
 );
 
 /** German (Deutsch)
