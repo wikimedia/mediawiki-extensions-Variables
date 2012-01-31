@@ -124,6 +124,13 @@ $messages['nl'] = array(
 	'variables-desc' => 'Parserfuncties die het mogelijk maken om met dynamische variabelen te werken in een paginacontext',
 );
 
+/** Polish (Polski)
+ * @author BeginaFelicysym
+ */
+$messages['pl'] = array(
+	'variables-desc' => 'Funkcje parsera umożliwiają pracę ze zmiennymi dynamicznymi w kontekście ograniczonym do artykułu',
+);
+
 /** Piedmontese (Piemontèis)
  * @author Borichèt
  * @author Dragonòt
