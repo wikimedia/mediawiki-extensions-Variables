@@ -139,3 +139,10 @@ $messages['pms'] = array(
 	'variables-desc' => "Funsion ëd l'analisator ch'a përmëtto ëd travajé con le variàbij dinàmiche ant ël contest ëd n'artìcol",
 );
 
+/** Simplified Chinese (‪中文(简体)‬)
+ * @author Hzy980512
+ */
+$messages['zh-hans'] = array(
+	'variables-desc' => '允许解析器函数在一个文章范围内使用动态变量',
+);
+
