@@ -54,6 +54,13 @@ $messages['dsb'] = array(
 	'variables-desc' => 'Parserowe funkcije, kótarež dowóluju źěłanje z dynamiskimi wariablami w nastawkach',
 );
 
+/** Spanish (Español)
+ * @author Armando-Martin
+ */
+$messages['es'] = array(
+	'variables-desc' => 'Funciones de analizador (parser) que permiten trabajar con variables dinámicas en el contexto de un artículo',
+);
+
 /** French (Français)
  * @author DavidL
  */
