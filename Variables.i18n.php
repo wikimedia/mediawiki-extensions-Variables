@@ -103,6 +103,13 @@ $messages['ja'] = array(
 	'variables-desc' => '記事をスコープとするコンテキストで動的変数を利用可能にするパーサー関数',
 );
 
+/** Korean (한국어)
+ * @author 아라
+ */
+$messages['ko'] = array(
+	'variables-desc' => '문서 범위 맥락에서 동적 변수와 함께 작동할 수 있도록 하는 파서 함수',
+);
+
 /** Colognian (Ripoarisch)
  * @author Purodha
  */
