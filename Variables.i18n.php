@@ -96,6 +96,13 @@ $messages['ia'] = array(
 	'variables-desc' => 'Functiones del analysator syntactic que permitte laborar con variabiles dynamic in un "article scoped context"',
 );
 
+/** Italian (Italiano)
+ * @author Beta16
+ */
+$messages['it'] = array(
+	'variables-desc' => 'Funzioni parser che permettono di lavorare con variabili dinamiche in una pagina con ambito di contesto',
+);
+
 /** Japanese (日本語)
  * @author Fryed-peach
  */
