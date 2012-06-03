@@ -96,7 +96,7 @@ $messages['ia'] = array(
 	'variables-desc' => 'Functiones del analysator syntactic que permitte laborar con variabiles dynamic in un "article scoped context"',
 );
 
-/** Italian (Italiano)
+/** Italian (italiano)
  * @author Beta16
  */
 $messages['it'] = array(
