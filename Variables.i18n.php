@@ -25,7 +25,7 @@ $messages['qqq'] = array(
 	'variables-desc' => '{{desc}}',
 );
 
-/** Asturian (Asturianu)
+/** Asturian (asturianu)
  * @author Xuacu
  */
 $messages['ast'] = array(
@@ -54,14 +54,14 @@ $messages['dsb'] = array(
 	'variables-desc' => 'Parserowe funkcije, kótarež dowóluju źěłanje z dynamiskimi wariablami w nastawkach',
 );
 
-/** Spanish (Español)
+/** Spanish (español)
  * @author Armando-Martin
  */
 $messages['es'] = array(
 	'variables-desc' => 'Funciones de analizador (parser) que permiten trabajar con variables dinámicas en el contexto de un artículo',
 );
 
-/** French (Français)
+/** French (français)
  * @author DavidL
  */
 $messages['fr'] = array(
@@ -89,7 +89,7 @@ $messages['hsb'] = array(
 	'variables-desc' => 'Parserowe funkcije, kotre dźěłanje z dynamiskimi wariablemi w nastawkach dowoleja',
 );
 
-/** Interlingua (Interlingua)
+/** Interlingua (interlingua)
  * @author McDutchie
  */
 $messages['ia'] = array(
@@ -124,7 +124,7 @@ $messages['ksh'] = array(
 	'variables-desc' => 'Paaser-Funxjuhne för dynaamesch Varijable em Zusammehang met Atikelle.',
 );
 
-/** Macedonian (Македонски)
+/** Macedonian (македонски)
  * @author Bjankuloski06
  */
 $messages['mk'] = array(
@@ -145,7 +145,7 @@ $messages['nl'] = array(
 	'variables-desc' => 'Parserfuncties die het mogelijk maken om met dynamische variabelen te werken in een paginacontext',
 );
 
-/** Polish (Polski)
+/** Polish (polski)
  * @author BeginaFelicysym
  */
 $messages['pl'] = array(
@@ -160,7 +160,7 @@ $messages['pms'] = array(
 	'variables-desc' => "Funsion ëd l'analisator ch'a përmëtto ëd travajé con le variàbij dinàmiche ant ël contest ëd n'artìcol",
 );
 
-/** Simplified Chinese (‪中文(简体)‬)
+/** Simplified Chinese (‪中文（简体）‬)
  * @author Hzy980512
  */
 $messages['zh-hans'] = array(
