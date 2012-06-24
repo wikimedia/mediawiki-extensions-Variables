@@ -8,7 +8,7 @@
  * Support:       https://www.mediawiki.org/wiki/Extension_talk:Variables
  * Source code:   https://svn.wikimedia.org/viewvc/mediawiki/trunk/extensions/Variables
  * 
- * @version: 2.0
+ * @version: 2.0.1
  * @license: ISC License
  * @author: Rob Adams
  * @author: Tom Hempel
@@ -37,7 +37,14 @@ $wgExtensionMessagesFiles['VariablesMagic'] = ExtVariables::getDir() . '/Variabl
 // hooks registration:
 $wgHooks['ParserFirstCallInit'     ][] = 'ExtVariables::init';
 $wgHooks['ParserClearState'        ][] = 'ExtVariables::onParserClearState';
-$wgHooks['InternalParseBeforeLinks'][] = 'ExtVariables::onInternalParseBeforeLinks';
+
+if( version_compare( $wgVersion, '1.20', '<' ) ) {
+	// fallback for InternalParseBeforeSanitize hook
+	$wgHooks['InternalParseBeforeLinks'][] = 'ExtVariables::onInternalParseBeforeLinks';
+} else {
+	// this hook is available from MW 1.20 on
+	$wgHooks['InternalParseBeforeSanitize'][] = 'ExtVariables::onInternalParseBeforeSanitize';
+}
 
 // Include the settings file:
 require_once ExtVariables::getDir() . '/Variables_Settings.php';
@@ -57,7 +64,7 @@ class ExtVariables {
 	 * 
 	 * @var string
 	 */
-	const VERSION = '2.0';
+	const VERSION = '2.0.1';
 	
 	/**
 	 * Internal store for variable values
@@ -74,7 +81,7 @@ class ExtVariables {
 	 * @since 2.0
 	 * 
 	 * @private
-	 * @var Array
+	 * @var array
 	 */
 	var $mFinalizedVars = array();
 	
@@ -178,8 +185,6 @@ class ExtVariables {
     }
 	
 	static function pf_var_final( Parser &$parser, $varName, $defaultVal = '' ) {
-		$varStore = self::get( $parser );
-		
 		return self::get( $parser )->requestFinalizedVar( $parser, $varName, $defaultVal );
 	}
 	
@@ -187,34 +192,37 @@ class ExtVariables {
 	##############
 	# Used Hooks #
 	##############
-	
-	static function onInternalParseBeforeLinks( Parser &$parser, &$text ) {
-		
+
+	/**
+	 * Used for '#var_final' parser function to insert the final variable values.
+	 * @see http://www.mediawiki.org/wiki/Manual:Hooks/InternalParseBeforeSanitize
+	 *
+	 * @since 2.0.1
+	 */
+	static function onInternalParseBeforeSanitize( Parser &$parser, &$text ) {
 		$varStore = self::get( $parser );
-		
+
 		// only do this if '#var_final' was used
 		if( $varStore->mFinalizedVarsStripState === null ) {
 			return true;
 		}
-				
+
 		/*
 		 * all vars are final now, check whether requested vars can be inserted for '#final_var' or
 		 * if the default has to be inserted. In any case, adjust the strip item value
 		 */
 		foreach( $varStore->mFinalizedVars as $stripStateId => $varName ) {
-			
+
 			$varVal = $varStore->getVarValue( $varName, '' );
 			if( $varVal !== '' ) {
 				// replace strip item value with final variables value or registered default:
-				//$varStore->mFinalizedVarsStripState->general->setPair( $stripStateId, $varVal );
-				
 				$varStore->stripStatePair( $stripStateId, $varVal );
 			}
 		}
-		
+
 		/**
 		 * Unstrip all '#var_final' strip-markers with their final '#var' or default values.
-		 * This HAS to be done here and can't be done thru the normal unstrip process of MW.
+		 * This HAS to be done here and can't be done through the normal unstrip process of MW.
 		 * This because the default value as well as the variables value stil have to be rendered properly since they
 		 * may contain links or even category links. On the other hand, they can't be parsed with Parser::recursiveTagParse()
 		 * since this would parse wiki templates and functions which are intended as normal text, kind of similar to
@@ -224,6 +232,20 @@ class ExtVariables {
 		 * This method also takes care of recursive '#var_final' calls (within the default value) quite well.
 		 */
 		$text = $varStore->mFinalizedVarsStripState->unstripGeneral( $text );
+		return true;
+	}
+
+	/**
+	 * Used to call and sanitize output by onInternalParseBeforeSanitize() in case of MediaWiki < 1.20 is used which
+	 * doesn't support the 'InternalParseBeforeSanitize' hook.
+	 * @see http://www.mediawiki.org/wiki/Manual:Hooks/InternalParseBeforeLinks
+	 *
+	 * @since 2.0
+	 */
+	static function onInternalParseBeforeLinks( Parser &$parser, &$text ) {
+		// do same stuff we would do in MW 1.20+...
+		self::onInternalParseBeforeSanitize( $parser, $text );
+		// ...but take care of additional necessary sanitizing then:
 		
 		/*
 		 * Sanitize the whole thing, otherwise HTML and JS code injection would be possible.
