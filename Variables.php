@@ -20,7 +20,7 @@
  */
 
 if ( ! defined( 'MEDIAWIKI' ) ) { die(); }
- 
+
 $wgExtensionCredits['parserhook'][] = array(
 	'path'           => __FILE__,
 	'name'           => 'Variables',
@@ -38,6 +38,8 @@ $wgExtensionMessagesFiles['VariablesMagic'] = ExtVariables::getDir() . '/Variabl
 $wgHooks['ParserFirstCallInit'     ][] = 'ExtVariables::init';
 $wgHooks['ParserClearState'        ][] = 'ExtVariables::onParserClearState';
 
+// tests registration:
+$wgParserTestFiles[] = ExtVariables::getDir() . "/tests.txt";
 if( version_compare( $wgVersion, '1.20', '<' ) ) {
 	// fallback for InternalParseBeforeSanitize hook
 	$wgHooks['InternalParseBeforeLinks'][] = 'ExtVariables::onInternalParseBeforeLinks';
@@ -56,103 +58,103 @@ require_once ExtVariables::getDir() . '/Variables_Settings.php';
  * as object assigned to a Parser object.
  */
 class ExtVariables {
-	
+
 	/**
 	 * Version of the 'Variables' extension.
-	 * 
+	 *
 	 * @since 1.4
-	 * 
+	 *
 	 * @var string
 	 */
 	const VERSION = '2.0.1';
-	
+
 	/**
 	 * Internal store for variable values
-	 * 
+	 *
 	 * @private
 	 * @var array
 	 */
     var $mVariables = array();
-	
+
 	/**
 	 * Array with all names of variables requested by '#var_final'. Key of the values is the
 	 * stripSateId of the strip-item placed where the final var should appear.
-	 * 
+	 *
 	 * @since 2.0
-	 * 
+	 *
 	 * @private
 	 * @var array
 	 */
 	var $mFinalizedVars = array();
-	
+
 	/**
 	 * Variables extensions own private StripState manager to manage '#final_var' placeholders
 	 * and their replacement with the final var value or a defined default.
-	 * 
+	 *
 	 * @since 2.0
-	 * 
+	 *
 	 * @private
 	 * @var StripState
 	 */
 	var $mFinalizedVarsStripState;
-	
+
 	/**
 	 * Sets up parser functions
-	 * 
+	 *
 	 * @since 1.4
 	 */
 	public static function init( Parser &$parser ) {
-		
+
 		/*
 		 * store for variables per parser object. This will solve several bugs related to
 		 * 'ParserClearState' hook clearing all variables early in combination with certain
 		 * other extensions. (since v2.0)
 		 */
 		$parser->mExtVariables = new self();
-		
+
 		// SFH_OBJECT_ARGS available since MW 1.12
-		self::initFunction( $parser, 'var', array( __CLASS__, 'pfObj_var' ), SFH_OBJECT_ARGS );		
+		self::initFunction( $parser, 'var', array( __CLASS__, 'pfObj_var' ), SFH_OBJECT_ARGS );
 		self::initFunction( $parser, 'var_final' );
 		self::initFunction( $parser, 'vardefine' );
 		self::initFunction( $parser, 'vardefineecho' );
 		self::initFunction( $parser, 'varexists' );
-		
+
 		return true;
 	}
 	private static function initFunction( Parser &$parser, $name, $functionCallback = null, $flags = 0 ) {
 		if( $functionCallback === null ) {
 			// prefix parser functions with 'pf_'
 			$functionCallback = array( __CLASS__, 'pf_' . $name );
-		}		
+		}
 		global $egVariablesDisabledFunctions;
-		
+
 		// register function only if not disabled by configuration:
-		if( ! in_array( $name, $egVariablesDisabledFunctions ) ) {			
+		if( ! in_array( $name, $egVariablesDisabledFunctions ) ) {
 			$parser->setFunctionHook( $name, $functionCallback, $flags );
 		}
 	}
-	
+
 	/**
 	 * Returns the extensions base installation directory.
 	 *
 	 * @since 2.0
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public static function getDir() {
 		static $dir = null;
-		
+
 		if( $dir === null ) {
 			$dir = dirname( __FILE__ );
 		}
 		return $dir;
 	}
-	
-	
+
+
 	####################
 	# Parser Functions #
 	####################
-	
+
     static function pf_varexists( Parser &$parser, $varName = '', $exists=true, $noexists=false ) {
         if( self::get( $parser )->varExists( $varName ) ) {
 			return $exists;
@@ -160,21 +162,21 @@ class ExtVariables {
 			return $noexists;
 		}
     }
-	
+
     static function pf_vardefine( Parser &$parser, $varName = '', $value = '' ) {
         self::get( $parser )->setVarValue( $varName, $value );
         return '';
     }
- 
+
     static function pf_vardefineecho( Parser &$parser, $varName = '', $value = '' ) {
         self::get( $parser )->setVarValue( $varName, $value );
         return $value;
     }
-		
+
     static function pfObj_var( Parser &$parser, $frame, $args) {
 		$varName = trim( $frame->expand( $args[0] ) ); // first argument expanded already but lets do this anyway
 		$varVal = self::get( $parser )->getVarValue( $varName, null );
-		
+
 		// default applies if var doesn't exist but also in case it is an empty string!
 		if( $varVal === null || $varVal === '' ) {
 			// only expand argument when needed:
@@ -183,12 +185,12 @@ class ExtVariables {
 		}
 		return $varVal;
     }
-	
+
 	static function pf_var_final( Parser &$parser, $varName, $defaultVal = '' ) {
 		return self::get( $parser )->requestFinalizedVar( $parser, $varName, $defaultVal );
 	}
-	
-	
+
+
 	##############
 	# Used Hooks #
 	##############
