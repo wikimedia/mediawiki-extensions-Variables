@@ -74,7 +74,7 @@ class ExtVariables {
 	 * @private
 	 * @var array
 	 */
-    var $mVariables = array();
+	var $mVariables = array();
 
 	/**
 	 * Array with all names of variables requested by '#var_final'. Key of the values is the
@@ -155,25 +155,25 @@ class ExtVariables {
 	# Parser Functions #
 	####################
 
-    static function pf_varexists( Parser &$parser, $varName = '', $exists=true, $noexists=false ) {
-        if( self::get( $parser )->varExists( $varName ) ) {
+	static function pf_varexists( Parser &$parser, $varName = '', $exists=true, $noexists=false ) {
+		if( self::get( $parser )->varExists( $varName ) ) {
 			return $exists;
 		} else {
 			return $noexists;
 		}
-    }
+	}
 
-    static function pf_vardefine( Parser &$parser, $varName = '', $value = '' ) {
-        self::get( $parser )->setVarValue( $varName, $value );
-        return '';
-    }
+	static function pf_vardefine( Parser &$parser, $varName = '', $value = '' ) {
+		self::get( $parser )->setVarValue( $varName, $value );
+		return '';
+	}
 
-    static function pf_vardefineecho( Parser &$parser, $varName = '', $value = '' ) {
-        self::get( $parser )->setVarValue( $varName, $value );
-        return $value;
-    }
+	static function pf_vardefineecho( Parser &$parser, $varName = '', $value = '' ) {
+		self::get( $parser )->setVarValue( $varName, $value );
+		return $value;
+	}
 
-    static function pfObj_var( Parser &$parser, $frame, $args) {
+	static function pfObj_var( Parser &$parser, $frame, $args) {
 		$varName = trim( $frame->expand( $args[0] ) ); // first argument expanded already but lets do this anyway
 		$varVal = self::get( $parser )->getVarValue( $varName, null );
 
@@ -184,7 +184,7 @@ class ExtVariables {
 			return $defaultVal;
 		}
 		return $varVal;
-    }
+	}
 
 	static function pf_var_final( Parser &$parser, $varName, $defaultVal = '' ) {
 		return self::get( $parser )->requestFinalizedVar( $parser, $varName, $defaultVal );
@@ -339,12 +339,12 @@ class ExtVariables {
 	 */
 	public function getVarValue( $varName, $defaultVal = null ) {
 		$varName = trim( $varName );
-        if ( $this->varExists( $varName ) ) {
-            return $this->mVariables[ $varName ];
-        } else {
-            return $defaultVal;
-        }
-    }
+		if ( $this->varExists( $varName ) ) {
+			return $this->mVariables[ $varName ];
+		} else {
+			return $defaultVal;
+		}
+	}
 	
 	/**
 	 * Checks whether a variable exists within the scope.
@@ -353,10 +353,10 @@ class ExtVariables {
 	 * 
 	 * @return boolean
 	 */
-    public function varExists( $varName ) {
+	public function varExists( $varName ) {
 		$varName = trim( $varName );
-        return array_key_exists( $varName, $this->mVariables );
-    }
+		return array_key_exists( $varName, $this->mVariables );
+	}
 	
 	/**
 	 * Allows to unset a certain variable
