@@ -160,6 +160,13 @@ $messages['pms'] = array(
 	'variables-desc' => "Funsion ëd l'analisator ch'a përmëtto ëd travajé con le variàbij dinàmiche ant ël contest ëd n'artìcol",
 );
 
+/** Tagalog (Tagalog)
+ * @author AnakngAraw
+ */
+$messages['tl'] = array(
+	'variables-desc' => 'Mga tungkulin ng pambanghay na nagpapahintulot na gumawa sa piling ng dinamikong mga bagay na nagpapabagu-bago sa loob ng isang diwang nasasaklawan ng artikulo',
+);
+
 /** Simplified Chinese (‪中文（简体）‬)
  * @author Hzy980512
  */
