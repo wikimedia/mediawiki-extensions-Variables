@@ -32,7 +32,7 @@ $messages['ast'] = array(
 	'variables-desc' => "Funciones analítiques que permiten trabayar con variables dinámiques nun contestu d'artículu",
 );
 
-/** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
  * @author Jim-by
  * @author Wizardist
  */
@@ -47,7 +47,7 @@ $messages['de'] = array(
 	'variables-desc' => 'Bietet Parser-Funktionen zur Verwendung dynamischer Variablen in Wiki-Artikeln',
 );
 
-/** Lower Sorbian (Dolnoserbski)
+/** Lower Sorbian (dolnoserbski)
  * @author Michawiki
  */
 $messages['dsb'] = array(
@@ -68,7 +68,7 @@ $messages['fr'] = array(
 	'variables-desc' => "Fonctions de l'interpréteur permettant de travailler avec les variables dynamiques dans le contexte d'un article",
 );
 
-/** Galician (Galego)
+/** Galician (galego)
  * @author Toliño
  */
 $messages['gl'] = array(
@@ -82,7 +82,7 @@ $messages['he'] = array(
 	'variables-desc' => 'פונקציות מפענח שמאפשרות עבודה עם משתנים דינמיים בהקשר בתחום של ערך',
 );
 
-/** Upper Sorbian (Hornjoserbsce)
+/** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
 $messages['hsb'] = array(
