@@ -174,3 +174,8 @@ $messages['zh-hans'] = array(
 	'variables-desc' => '允许解析器函数在一个文章范围内使用动态变量',
 );
 
+/** Traditional Chinese (中文（繁體）‎) */
+$messages['zh-hant'] = array(
+	'variables-desc' => '允許解析器函數在一個文章範圍內使用動態變量',
+);
+
