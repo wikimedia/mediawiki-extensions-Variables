@@ -32,7 +32,7 @@ $messages['ast'] = array(
 	'variables-desc' => "Funciones analítiques que permiten trabayar con variables dinámiques nun contestu d'artículu",
 );
 
-/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
  * @author Jim-by
  * @author Wizardist
  */
@@ -167,7 +167,7 @@ $messages['tl'] = array(
 	'variables-desc' => 'Mga tungkulin ng pambanghay na nagpapahintulot na gumawa sa piling ng dinamikong mga bagay na nagpapabagu-bago sa loob ng isang diwang nasasaklawan ng artikulo',
 );
 
-/** Simplified Chinese (‪中文（简体）‬)
+/** Simplified Chinese (中文（简体）‎)
  * @author Hzy980512
  */
 $messages['zh-hans'] = array(
