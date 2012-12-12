@@ -167,6 +167,13 @@ $messages['tl'] = array(
 	'variables-desc' => 'Mga tungkulin ng pambanghay na nagpapahintulot na gumawa sa piling ng dinamikong mga bagay na nagpapabagu-bago sa loob ng isang diwang nasasaklawan ng artikulo',
 );
 
+/** Ukrainian (українська)
+ * @author Base
+ */
+$messages['uk'] = array(
+	'variables-desc' => 'Функції парсера, що дозволяють працювати із динамічними змінними у контексті статей',
+);
+
 /** Simplified Chinese (中文（简体）‎)
  * @author Hzy980512
  */
