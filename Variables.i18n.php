@@ -20,9 +20,10 @@ $messages['en'] = array(
 
 /** Message documentation (Message documentation)
  * @author Purodha
+ * @author Shirayuki
  */
 $messages['qqq'] = array(
-	'variables-desc' => '{{desc}}',
+	'variables-desc' => '{{desc|name=Variables|url=http://www.mediawiki.org/wiki/Extension:Variables}}',
 );
 
 /** Asturian (asturianu)
