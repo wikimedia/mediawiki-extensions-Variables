@@ -161,6 +161,13 @@ $messages['pms'] = array(
 	'variables-desc' => "Funsion ëd l'analisator ch'a përmëtto ëd travajé con le variàbij dinàmiche ant ël contest ëd n'artìcol",
 );
 
+/** tarandíne (tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'variables-desc' => "Le funziune analizzatrice permettene de fatià cu le variabbile dinameche jndr'à 'na vôsce jndr'à 'nu condeste",
+);
+
 /** Tagalog (Tagalog)
  * @author AnakngAraw
  */
