@@ -43,9 +43,10 @@ $messages['be-tarask'] = array(
 
 /** German (Deutsch)
  * @author Daniel Werner
+ * @author Kghbln
  */
 $messages['de'] = array(
-	'variables-desc' => 'Bietet Parser-Funktionen zur Verwendung dynamischer Variablen in Wiki-Artikeln',
+	'variables-desc' => 'Ergänzt Parserfunktionen die dynamische Variablen ermöglichen',
 );
 
 /** Lower Sorbian (dolnoserbski)
