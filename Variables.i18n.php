@@ -169,6 +169,13 @@ $messages['roa-tara'] = array(
 	'variables-desc' => "Le funziune analizzatrice permettene de fatià cu le variabbile dinameche jndr'à 'na vôsce jndr'à 'nu condeste",
 );
 
+/** Russian (русский)
+ * @author Putnik
+ */
+$messages['ru'] = array(
+	'variables-desc' => 'Функции парсера, позволяющие работать с динамическими переменными в контексте области статьи',
+);
+
 /** Tagalog (Tagalog)
  * @author AnakngAraw
  */
