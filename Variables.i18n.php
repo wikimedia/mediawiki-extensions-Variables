@@ -162,6 +162,13 @@ $messages['pms'] = array(
 	'variables-desc' => "Funsion ëd l'analisator ch'a përmëtto ëd travajé con le variàbij dinàmiche ant ël contest ëd n'artìcol",
 );
 
+/** Brazilian Portuguese (português do Brasil)
+ * @author Cainamarques
+ */
+$messages['pt-br'] = array(
+	'variables-desc' => 'Funções sintáticas que permitem trabalhar com variáveis dinâmicas no contexto de um artigo',
+);
+
 /** tarandíne (tarandíne)
  * @author Joetaras
  */
