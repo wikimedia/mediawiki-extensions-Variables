@@ -17,10 +17,3 @@ MediaWiki 'extensions' directory. Then add the following code to your
  # Variables
  require_once( "$IP/extensions/Variables/Variables.php" );
 
- 
-== Contributing ==
-
-If you have bug reports or feature requests, please add them to the ''Variables''
-Talk page [0]. You can also send them to Daniel Werner < danweetz@web.de >
-
-[0] https://www.mediawiki.org/w/index.php?title=Extension_talk:Variables

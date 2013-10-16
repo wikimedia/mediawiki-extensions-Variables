@@ -38,8 +38,9 @@ $wgExtensionMessagesFiles['VariablesMagic'] = ExtVariables::getDir() . '/Variabl
 $wgHooks['ParserFirstCallInit'     ][] = 'ExtVariables::init';
 $wgHooks['ParserClearState'        ][] = 'ExtVariables::onParserClearState';
 
-// tests registration:
-$wgParserTestFiles[] = ExtVariables::getDir() . "/tests.txt";
+// parser tests registration:
+$wgParserTestFiles[] = ExtVariables::getDir() . '/tests/mwparsertests/Variables.txt';
+
 if( version_compare( $wgVersion, '1.20', '<' ) ) {
 	// fallback for InternalParseBeforeSanitize hook
 	$wgHooks['InternalParseBeforeLinks'][] = 'ExtVariables::onInternalParseBeforeLinks';
@@ -49,7 +50,7 @@ if( version_compare( $wgVersion, '1.20', '<' ) ) {
 }
 
 // Include the settings file:
-require_once ExtVariables::getDir() . '/Variables_Settings.php';
+require_once ExtVariables::getDir() . '/Variables.settings.php';
 
 
 /**
@@ -139,7 +140,7 @@ class ExtVariables {
 	 *
 	 * @since 2.0
 	 *
-	 * @return boolean
+	 * @return string
 	 */
 	public static function getDir() {
 		static $dir = null;
