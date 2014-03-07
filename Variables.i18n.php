@@ -63,6 +63,13 @@ $messages['es'] = array(
 	'variables-desc' => 'Funciones de analizador (parser) que permiten trabajar con variables dinámicas en el contexto de un artículo',
 );
 
+/** Persian (فارسی)
+ * @author Armin1392
+ */
+$messages['fa'] = array(
+	'variables-desc' => 'عملیات تجزیه‌کننده برای کار کردن با متغیرهای پویا در یک مقاله بافت محدود شده، اجازه می‌دهد',
+);
+
 /** French (français)
  * @author DavidL
  */
