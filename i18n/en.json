@@ -1,0 +1,8 @@
+{
+    "@metadata": {
+        "authors": [
+            "Daniel Werner"
+        ]
+    },
+    "variables-desc": "Parser functions allowing to work with dynamic variables in an article scoped context"
+}

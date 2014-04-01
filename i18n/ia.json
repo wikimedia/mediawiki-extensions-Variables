@@ -1,0 +1,8 @@
+{
+    "@metadata": {
+        "authors": [
+            "McDutchie"
+        ]
+    },
+    "variables-desc": "Functiones del analysator syntactic que permitte laborar con variabiles dynamic in un \"article scoped context\""
+}

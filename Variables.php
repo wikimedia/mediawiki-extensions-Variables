@@ -3,12 +3,11 @@
 /**
  * 'Variables' introduces parser functions for defining page-scoped variables within
  * wiki pages.
- * 
+ *
  * Documentation: https://www.mediawiki.org/wiki/Extension:Variables
  * Support:       https://www.mediawiki.org/wiki/Extension_talk:Variables
  * Source code:   https://svn.wikimedia.org/viewvc/mediawiki/trunk/extensions/Variables
- * 
- * @version: 2.0.1
+ *
  * @license: ISC License
  * @author: Rob Adams
  * @author: Tom Hempel
@@ -31,6 +30,7 @@ $wgExtensionCredits['parserhook'][] = array(
 );
 
 // language files:
+$wgMessagesDirs['Variables'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['Variables'     ] = ExtVariables::getDir() . '/Variables.i18n.php';
 $wgExtensionMessagesFiles['VariablesMagic'] = ExtVariables::getDir() . '/Variables.i18n.magic.php';
 
@@ -67,7 +67,7 @@ class ExtVariables {
 	 *
 	 * @var string
 	 */
-	const VERSION = '2.0.1';
+	const VERSION = '2.1.0';
 
 	/**
 	 * Internal store for variable values
@@ -249,7 +249,7 @@ class ExtVariables {
 		// do same stuff we would do in MW 1.20+...
 		self::onInternalParseBeforeSanitize( $parser, $text );
 		// ...but take care of additional necessary sanitizing then:
-		
+
 		/*
 		 * Sanitize the whole thing, otherwise HTML and JS code injection would be possible.
 		 * Basically the same is happening in Parser::internalParse() right before 'InternalParseBeforeLinks' hook is called.
@@ -262,7 +262,7 @@ class ExtVariables {
 		);
 		return true;
 	}
-		
+
 	/**
 	 * This will clean up the variables store after parsing has finished. It will prevent strange things to happen
 	 * for example during import of several pages or job queue is running for multiple pages. In these cases variables
@@ -277,17 +277,17 @@ class ExtVariables {
 		$parser->mExtVariables = new self();
 		return true;
 	}
-	
-	
+
+
 	##################
 	# Private Helper #
 	##################
-	
+
 	/**
 	 * Takes care of setting a strip state pair in MW 1.18 as well as in previous versions
 	 */
 	protected function stripStatePair( $marker, $value ) {
-		global $wgVersion;		
+		global $wgVersion;
 		if( version_compare( $wgVersion, '1.17.99', '>' ) ) {
 			// MW 1.18alpha+
 			$this->mFinalizedVarsStripState->addGeneral( $marker, $value );
@@ -295,8 +295,8 @@ class ExtVariables {
 			$this->mFinalizedVarsStripState->general->setPair( $marker, $value );
 		}
 	}
-	
-	
+
+
 	####################################
 	# Public functions for interaction #
 	####################################
@@ -305,37 +305,37 @@ class ExtVariables {
 	# other extensions doing interactive stuff
 	# with 'Variables' (like Extension:Loops)
 	#
-	
+
 	/**
 	 * Convenience function to return the 'Variables' extensions variables store connected
 	 * to a certain Parser object. Each parser has its own store which will be reset after
 	 * a parsing process [Parser::parse()] has finished.
-	 * 
+	 *
 	 * @param Parser &$parser
-	 * 
+	 *
 	 * @return ExtVariables by reference so we still have the right object after 'ParserClearState'
 	 */
 	public static function &get( Parser &$parser ) {
 		return $parser->mExtVariables;
 	}
-	
+
 	/**
 	 * Defines a variable, accessible by getVarValue() or '#var' parser function. Name and
 	 * value will be trimmed and converted to string.
-	 * 
+	 *
 	 * @param string $varName
 	 * @param string $value will be converted to string if no string is given
 	 */
 	public function setVarValue( $varName, $value = '' ) {
 		$this->mVariables[ trim( $varName ) ] = trim( $value );
 	}
-	
+
 	/**
 	 * Returns a variables value or null if it doesn't exist.
-	 * 
+	 *
 	 * @param string $varName
 	 * @param mixed $defaultVal
-	 * 
+	 *
 	 * @return string or mixed in case $defaultVal is being returned and not of type string
 	 */
 	public function getVarValue( $varName, $defaultVal = null ) {
@@ -346,28 +346,28 @@ class ExtVariables {
 			return $defaultVal;
 		}
 	}
-	
+
 	/**
 	 * Checks whether a variable exists within the scope.
-	 * 
+	 *
 	 * @param string $varName
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public function varExists( $varName ) {
 		$varName = trim( $varName );
 		return array_key_exists( $varName, $this->mVariables );
 	}
-	
+
 	/**
 	 * Allows to unset a certain variable
-	 * 
+	 *
 	 * @param type $varName
 	 */
 	public function unsetVar( $varName ) {
 		unset( $this->mVariables[ $varName ] );
 	}
-	
+
 	/**
 	 * Allows to register the usage of '#var_final'. Meaning a variable can be set as well
 	 * as a default value. The return value, a strip-item then can be inserted into any
@@ -375,7 +375,7 @@ class ExtVariables {
 	 * the final var text.
 	 * Note: It's not possible to use the returned strip-item within other stripped text
 	 *       since 'Variables' unstripping will happen before the general unstripping!
-	 * 
+	 *
 	 * @param Parser $parser
 	 * @param string $varName
 	 * @param string $defaultVal
@@ -386,18 +386,18 @@ class ExtVariables {
 		if( $this->mFinalizedVarsStripState === null ) {
 			$this->mFinalizedVarsStripState = new StripState( $parser->mUniqPrefix );
 		}
-		$id = count( $this->mFinalizedVars );		
+		$id = count( $this->mFinalizedVars );
 		/*
 		 * strip-item which will be unstripped in self::onInternalParseBeforeLinks()
 		 * In case the requested final variable has a value in the end, this strip-item
 		 * value will be replaced with that value before unstripping.
 		 */
 		$rnd = "{$parser->mUniqPrefix}-finalizedvar-{$id}-" . Parser::MARKER_SUFFIX;
-		
-		$this->stripStatePair( $rnd, trim( $defaultVal ) );		
+
+		$this->stripStatePair( $rnd, trim( $defaultVal ) );
 		$this->mFinalizedVars[ $rnd ] = trim( $varName );
-		
+
 		return $rnd;
 	}
-	
+
 }
