@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Daniel Werner",
-            "Kghbln"
-        ]
-    },
-    "variables-desc": "Ergänzt Parserfunktionen die dynamische Variablen ermöglichen"
+	"@metadata": {
+		"authors": [
+			"Daniel Werner",
+			"Kghbln"
+		]
+	},
+	"variables-desc": "Ergänzt Parserfunktionen die dynamische Variablen ermöglichen"
 }

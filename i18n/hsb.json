@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "Michawiki"
-        ]
-    },
-    "variables-desc": "Parserowe funkcije, kotre dźěłanje z dynamiskimi wariablemi w nastawkach dowoleja"
+	"@metadata": {
+		"authors": [
+			"Michawiki"
+		]
+	},
+	"variables-desc": "Parserowe funkcije, kotre dźěłanje z dynamiskimi wariablemi w nastawkach dowoleja"
 }

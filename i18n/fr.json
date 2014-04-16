@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "DavidL"
-        ]
-    },
-    "variables-desc": "Fonctions de l'interpréteur permettant de travailler avec les variables dynamiques dans le contexte d'un article"
+	"@metadata": {
+		"authors": [
+			"DavidL"
+		]
+	},
+	"variables-desc": "Fonctions de l'interpréteur permettant de travailler avec les variables dynamiques dans le contexte d'un article"
 }

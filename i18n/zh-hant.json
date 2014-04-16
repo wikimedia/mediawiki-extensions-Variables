@@ -1,6 +1,4 @@
 {
-    "@metadata": {
-        "authors": []
-    },
-    "variables-desc": "允許解析器函數在一個文章範圍內使用動態變量"
+	"@metadata": [],
+	"variables-desc": "允許解析器函數在一個文章範圍內使用動態變量"
 }

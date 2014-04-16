@@ -1,8 +1,8 @@
 {
-    "@metadata": {
-        "authors": [
-            "BeginaFelicysym"
-        ]
-    },
-    "variables-desc": "Funkcje parsera umożliwiają pracę ze zmiennymi dynamicznymi w kontekście ograniczonym do artykułu"
+	"@metadata": {
+		"authors": [
+			"BeginaFelicysym"
+		]
+	},
+	"variables-desc": "Funkcje parsera umożliwiają pracę ze zmiennymi dynamicznymi w kontekście ograniczonym do artykułu"
 }
