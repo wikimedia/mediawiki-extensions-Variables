@@ -75,7 +75,7 @@ class ExtVariables {
 	 * @private
 	 * @var array
 	 */
-	var $mVariables = array();
+	public $mVariables = array();
 
 	/**
 	 * Array with all names of variables requested by '#var_final'. Key of the values is the
@@ -86,7 +86,7 @@ class ExtVariables {
 	 * @private
 	 * @var array
 	 */
-	var $mFinalizedVars = array();
+	public $mFinalizedVars = array();
 
 	/**
 	 * Variables extensions own private StripState manager to manage '#final_var' placeholders
@@ -97,7 +97,7 @@ class ExtVariables {
 	 * @private
 	 * @var StripState
 	 */
-	var $mFinalizedVarsStripState;
+	public $mFinalizedVarsStripState;
 
 	/**
 	 * Sets up parser functions
