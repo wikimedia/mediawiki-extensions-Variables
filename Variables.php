@@ -113,8 +113,8 @@ class ExtVariables {
 		 */
 		$parser->mExtVariables = new self();
 
-		// SFH_OBJECT_ARGS available since MW 1.12
-		self::initFunction( $parser, 'var', array( __CLASS__, 'pfObj_var' ), SFH_OBJECT_ARGS );
+		// Parser::SFH_OBJECT_ARGS available since MW 1.12
+		self::initFunction( $parser, 'var', array( __CLASS__, 'pfObj_var' ), Parser::SFH_OBJECT_ARGS );
 		self::initFunction( $parser, 'var_final' );
 		self::initFunction( $parser, 'vardefine' );
 		self::initFunction( $parser, 'vardefineecho' );
