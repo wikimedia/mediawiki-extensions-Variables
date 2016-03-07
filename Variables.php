@@ -384,7 +384,7 @@ class ExtVariables {
 	 */
 	function requestFinalizedVar( Parser &$parser, $varName, $defaultVal = '' ) {
 		if( $this->mFinalizedVarsStripState === null ) {
-			$this->mFinalizedVarsStripState = new StripState( $parser->mUniqPrefix );
+			$this->mFinalizedVarsStripState = new StripState;
 		}
 		$id = count( $this->mFinalizedVars );
 		/*
