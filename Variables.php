@@ -6,7 +6,7 @@
  *
  * Documentation: https://www.mediawiki.org/wiki/Extension:Variables
  * Support:       https://www.mediawiki.org/wiki/Extension_talk:Variables
- * Source code:   https://svn.wikimedia.org/viewvc/mediawiki/trunk/extensions/Variables
+ * Source code:   https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Variables.git
  *
  * @license: ISC License
  * @author: Rob Adams
@@ -25,8 +25,14 @@ $wgExtensionCredits['parserhook'][] = array(
 	'name'           => 'Variables',
 	'descriptionmsg' => 'variables-desc',
 	'version'        => ExtVariables::VERSION,
-	'author'         => array( 'Rob Adams', 'Tom Hempel', 'Xiloynaha', '[https://www.mediawiki.org/wiki/User:Danwe Daniel Werner]' ),
+	'author'         => array(
+		'Rob Adams',
+		'Tom Hempel',
+		'Xiloynaha',
+		'[https://www.mediawiki.org/wiki/User:Danwe Daniel Werner]'
+	),
 	'url'            => 'https://www.mediawiki.org/wiki/Extension:Variables',
+	'license-name'   => 'ISC'
 );
 
 // language files:
