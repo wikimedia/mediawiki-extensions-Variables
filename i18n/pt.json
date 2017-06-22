@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hamilton Abreu"
+		]
+	},
+	"variables-desc": "Funções do analisador sintático que permitem trabalhar com variáveis dinâmicas num contexto limitado ao âmbito de uma página"
+}
