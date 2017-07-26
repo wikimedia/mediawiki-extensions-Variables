@@ -6,7 +6,7 @@
  *
  * Documentation: https://www.mediawiki.org/wiki/Extension:Variables
  * Support:       https://www.mediawiki.org/wiki/Extension_talk:Variables
- * Source code:   https://gerrit.wikimedia.org/r/p/mediawiki/extensions/Variables.git
+ * Source code:   https://phabricator.wikimedia.org/diffusion/EVAR/
  *
  * @license: ISC License
  * @author: Rob Adams
@@ -18,42 +18,39 @@
  * @ingroup Variables
  */
 
-if ( ! defined( 'MEDIAWIKI' ) ) { die(); }
+// Ensure that the script cannot be executed outside of MediaWiki.
+if ( !defined( 'MEDIAWIKI' ) ) {
+    die( 'This is an extension to MediaWiki and cannot be run standalone.' );
+}
 
+// Display extension properties on MediaWiki.
 $wgExtensionCredits['parserhook'][] = array(
-	'path'           => __FILE__,
-	'name'           => 'Variables',
+	'path' => __FILE__,
+	'name' => 'Variables',
 	'descriptionmsg' => 'variables-desc',
-	'version'        => ExtVariables::VERSION,
-	'author'         => array(
+	'version' => ExtVariables::VERSION,
+	'author' => array(
 		'Rob Adams',
 		'Tom Hempel',
 		'Xiloynaha',
-		'[https://www.mediawiki.org/wiki/User:Danwe Daniel Werner]'
+		'[https://www.mediawiki.org/wiki/User:Danwe Daniel Werner]',
+		'...'
 	),
-	'url'            => 'https://www.mediawiki.org/wiki/Extension:Variables',
-	'license-name'   => 'ISC'
+	'url' => 'https://www.mediawiki.org/wiki/Extension:Variables',
+	'license-name' => 'ISC'
 );
 
 // language files:
 $wgMessagesDirs['Variables'] = __DIR__ . '/i18n';
-$wgExtensionMessagesFiles['Variables'     ] = ExtVariables::getDir() . '/Variables.i18n.php';
 $wgExtensionMessagesFiles['VariablesMagic'] = ExtVariables::getDir() . '/Variables.i18n.magic.php';
 
 // hooks registration:
-$wgHooks['ParserFirstCallInit'     ][] = 'ExtVariables::init';
-$wgHooks['ParserClearState'        ][] = 'ExtVariables::onParserClearState';
+$wgHooks['ParserFirstCallInit'][] = 'ExtVariables::init';
+$wgHooks['ParserClearState'][] = 'ExtVariables::onParserClearState';
+$wgHooks['InternalParseBeforeSanitize'][] = 'ExtVariables::onInternalParseBeforeSanitize';
 
 // parser tests registration:
 $wgParserTestFiles[] = ExtVariables::getDir() . '/tests/mwparsertests/Variables.txt';
-
-if( version_compare( $wgVersion, '1.20', '<' ) ) {
-	// fallback for InternalParseBeforeSanitize hook
-	$wgHooks['InternalParseBeforeLinks'][] = 'ExtVariables::onInternalParseBeforeLinks';
-} else {
-	// this hook is available from MW 1.20 on
-	$wgHooks['InternalParseBeforeSanitize'][] = 'ExtVariables::onInternalParseBeforeSanitize';
-}
 
 // Include the settings file:
 require_once ExtVariables::getDir() . '/Variables.settings.php';
@@ -73,7 +70,7 @@ class ExtVariables {
 	 *
 	 * @var string
 	 */
-	const VERSION = '2.1.0';
+	const VERSION = '2.2.0';
 
 	/**
 	 * Internal store for variable values
@@ -245,31 +242,6 @@ class ExtVariables {
 	}
 
 	/**
-	 * Used to call and sanitize output by onInternalParseBeforeSanitize() in case of MediaWiki < 1.20 is used which
-	 * doesn't support the 'InternalParseBeforeSanitize' hook.
-	 * @see http://www.mediawiki.org/wiki/Manual:Hooks/InternalParseBeforeLinks
-	 *
-	 * @since 2.0
-	 */
-	static function onInternalParseBeforeLinks( Parser &$parser, &$text ) {
-		// do same stuff we would do in MW 1.20+...
-		self::onInternalParseBeforeSanitize( $parser, $text );
-		// ...but take care of additional necessary sanitizing then:
-
-		/*
-		 * Sanitize the whole thing, otherwise HTML and JS code injection would be possible.
-		 * Basically the same is happening in Parser::internalParse() right before 'InternalParseBeforeLinks' hook is called.
-		 */
-		$text = Sanitizer::removeHTMLtags(
-				$text,
-				array( &$parser, 'attributeStripCallback' ),
-				false,
-				array_keys( $parser->mTransparentTagHooks )
-		);
-		return true;
-	}
-
-	/**
 	 * This will clean up the variables store after parsing has finished. It will prevent strange things to happen
 	 * for example during import of several pages or job queue is running for multiple pages. In these cases variables
 	 * would become some kind of superglobals, being passed from one page to the other.
@@ -290,16 +262,10 @@ class ExtVariables {
 	##################
 
 	/**
-	 * Takes care of setting a strip state pair in MW 1.18 as well as in previous versions
+	 * Takes care of setting a strip state pair
 	 */
 	protected function stripStatePair( $marker, $value ) {
-		global $wgVersion;
-		if( version_compare( $wgVersion, '1.17.99', '>' ) ) {
-			// MW 1.18alpha+
-			$this->mFinalizedVarsStripState->addGeneral( $marker, $value );
-		} else {
-			$this->mFinalizedVarsStripState->general->setPair( $marker, $value );
-		}
+		$this->mFinalizedVarsStripState->addGeneral( $marker, $value );
 	}
 
 
@@ -394,7 +360,7 @@ class ExtVariables {
 		}
 		$id = count( $this->mFinalizedVars );
 		/*
-		 * strip-item which will be unstripped in self::onInternalParseBeforeLinks()
+		 * strip-item which will be unstripped in self::onInternalParseBeforeSanitize()
 		 * In case the requested final variable has a value in the end, this strip-item
 		 * value will be replaced with that value before unstripping.
 		 */
