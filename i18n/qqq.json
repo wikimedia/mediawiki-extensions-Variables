@@ -3,8 +3,10 @@
 		"authors": [
 			"Purodha",
 			"Shirayuki",
-			"Umherirrender"
+			"Umherirrender",
+			"MGChecker"
 		]
 	},
-	"variables-desc": "{{desc|name=Variables|url=https://www.mediawiki.org/wiki/Extension:Variables}}"
+	"variables-desc": "{{desc|name=Variables|url=https://www.mediawiki.org/wiki/Extension:Variables}}",
+	"variables-config-disabledfunctions": "configuration setting description of $egDisabledFunctions"
 }
