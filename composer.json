@@ -1,0 +1,18 @@
+{
+	"name": "mediawiki/variables",
+	"type": "mediawiki-extension",
+	"description": "The Variables extension allows you to define a variable on a page, use it later in that same page or included templates, change its value, possibly to a value given by an expression in terms of the old value, etc.",
+	"require": {
+		"composer/installers": "~1.0"
+	},
+	"require-dev": {
+		"jakub-onderka/php-parallel-lint": "0.9.2",
+		"jakub-onderka/php-console-highlighter": "0.3.2",
+		"phpunit/phpunit": "4.8.*"
+	},
+	"scripts": {
+		"test": [
+			"parallel-lint . --exclude vendor --exclude node_modules"
+		]
+	}
+}
