@@ -6,5 +6,5 @@
 		]
 	},
 	"variables-desc": "Funções do analisador sintático que permitem trabalhar com variáveis dinâmicas num contexto limitado ao âmbito de uma página",
-	"variables-config-disabledfunctions": "Permite definir uma matriz de funções que não devem estar disponíveis na wiki. Omite qualquer # enquanto as funções estão a ser adicionadas."
+	"variables-config-disabledfunctions": "Permite definir uma matriz de funções que não devem estar disponíveis na wiki. Omita qualquer # quando adicionar funções."
 }
