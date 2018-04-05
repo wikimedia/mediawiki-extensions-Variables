@@ -1,6 +1,6 @@
 {
 	"name": "Variables",
-	"version": "2.3.0",
+	"version": "2.4.0",
 	"author": [
 		"Rob Adams",
 		"Tom Hempel",
@@ -22,7 +22,13 @@
 			"value": [],
 			"path": false,
 			"descriptionmsg": "variables-config-disabledfunctions",
-			"@example": "$egVariablesDisabledFunctions = array( 'var_final', 'vardefineecho' ); // to disable '#var_final' and '#vardefineecho' functions",
+			"@example": "$egVariablesDisabledFunctions = [ 'var_final', 'vardefineecho' ]; // to disable '#var_final' and '#vardefineecho' functions",
+			"public": true
+		},
+		"VariablesAreVolatile": {
+			"value": true,
+			"path": false,
+			"descriptionmsg": "variables-config-arevolatile",
 			"public": true
 		}
 	},

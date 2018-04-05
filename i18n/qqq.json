@@ -8,5 +8,6 @@
 		]
 	},
 	"variables-desc": "{{desc|name=Variables|url=https://www.mediawiki.org/wiki/Extension:Variables}}",
-	"variables-config-disabledfunctions": "configuration setting description of $egDisabledFunctions"
+	"variables-config-disabledfunctions": "configuration setting description of $egVariablesDisabledFunctions",
+	"variables-config-arevolatile": "configuration setting description of $egVariablesAreVolatile"
 }
