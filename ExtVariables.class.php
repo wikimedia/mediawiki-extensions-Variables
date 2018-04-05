@@ -1,7 +1,7 @@
 <?php
 /**
  * Extension class with basic extension information. This class serves as static
- * class with the static parser functions but also als variables store instance
+ * class with the static parser functions but also as variables store instance
  * as object assigned to a Parser object.
  */
 class ExtVariables {
@@ -13,15 +13,15 @@ class ExtVariables {
 	 *
 	 * @var string
 	 */
-	const VERSION = '2.3.0';
-	
+	const VERSION = '2.4.0';
+
 	/**
 	 * Internal store for variable values
 	 *
 	 * @private
 	 * @var array
 	 */
-	public $mVariables = array();
+	public $mVariables = [];
 
 	/**
 	 * Array with all names of variables requested by '#var_final'. Key of the values is the
@@ -32,7 +32,7 @@ class ExtVariables {
 	 * @private
 	 * @var array
 	 */
-	public $mFinalizedVars = array();
+	public $mFinalizedVars = [];
 
 	/**
 	 * Variables extensions own private StripState manager to manage '#final_var' placeholders
@@ -60,22 +60,22 @@ class ExtVariables {
 		$parser->mExtVariables = new self();
 
 		// Parser::SFH_OBJECT_ARGS available since MW 1.12
-		self::initFunction( $parser, 'var', array( __CLASS__, 'pfObj_var' ), Parser::SFH_OBJECT_ARGS );
+		self::initFunction( $parser, 'var', [ __CLASS__, 'pfObj_var' ], Parser::SFH_OBJECT_ARGS );
+		self::initFunction( $parser, 'varexists', [ __CLASS__, 'pfObj_varexists' ], Parser::SFH_OBJECT_ARGS );
 		self::initFunction( $parser, 'var_final' );
 		self::initFunction( $parser, 'vardefine' );
 		self::initFunction( $parser, 'vardefineecho' );
-		self::initFunction( $parser, 'varexists' );
 
 		return true;
 	}
 	private static function initFunction( Parser &$parser, $name, $functionCallback = null, $flags = 0 ) {
 		if( $functionCallback === null ) {
 			// prefix parser functions with 'pf_'
-			$functionCallback = array( __CLASS__, 'pf_' . $name );
+			$functionCallback = [ __CLASS__, 'pf_' . $name ];
 		}
-		global $egVariablesDisabledFunctions;
 
 		// register function only if not disabled by configuration:
+		global $egVariablesDisabledFunctions;
 		if( ! in_array( $name, $egVariablesDisabledFunctions ) ) {
 			$parser->setFunctionHook( $name, $functionCallback, $flags );
 		}
@@ -85,14 +85,6 @@ class ExtVariables {
 	####################
 	# Parser Functions #
 	####################
-
-	static function pf_varexists( Parser &$parser, $varName = '', $exists=true, $noexists=false ) {
-		if( self::get( $parser )->varExists( $varName ) ) {
-			return $exists;
-		} else {
-			return $noexists;
-		}
-	}
 
 	static function pf_vardefine( Parser &$parser, $varName = '', $value = '' ) {
 		self::get( $parser )->setVarValue( $varName, $value );
@@ -104,9 +96,35 @@ class ExtVariables {
 		return $value;
 	}
 
+	static function pfObj_varexists( Parser &$parser, $frame, $args ) {
+		// first argument expanded already but lets do this anyway
+		$varName  = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
+		$exists   = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : true;
+		$noexists = isset( $args[2] ) ? trim( $frame->expand( $args[2] ) ) : false;
+
+		// this prevents issues due to template caching, templates using variables are reparsed every call.
+		global $egVariablesAreVolatile;
+		if ( $egVariablesAreVolatile ) {
+			$frame->setVolatile();
+		}
+
+		if( self::get( $parser )->varExists( $varName ) ) {
+			return $exists;
+		} else {
+			return $noexists;
+		}
+	}
+
 	static function pfObj_var( Parser &$parser, $frame, $args) {
-		$varName = trim( $frame->expand( $args[0] ) ); // first argument expanded already but lets do this anyway
+		// first argument expanded already but lets do this anyway
+		$varName = trim( $frame->expand( $args[0] ) );
 		$varVal = self::get( $parser )->getVarValue( $varName, null );
+
+		// this prevents issues due to template caching, templates using variables are reparsed every call
+		global $egVariablesAreVolatile;
+		if ( $egVariablesAreVolatile ) {
+			$frame->setVolatile();
+		}
 
 		// default applies if var doesn't exist but also in case it is an empty string!
 		if( $varVal === null || $varVal === '' ) {
