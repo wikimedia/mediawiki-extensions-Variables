@@ -40,7 +40,7 @@
 		"VariablesMagic": "Variables.i18n.magic.php"
 	},
 	"AutoloadClasses": {
-		"ExtVariables": "Variables_body.php"
+		"ExtVariables": "ExtVariables.class.php"
 	},
 	"ParserTestFiles": [
 		"/tests/mwparsertests/Variables.txt"
