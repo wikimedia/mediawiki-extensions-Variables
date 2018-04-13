@@ -9,6 +9,7 @@ class ExtVariables {
 	/**
 	 * Version of the 'Variables' extension.
 	 * Using this constant is deprecated, please use the data in extension.json instead.
+	 *
 	 * @since 1.4
 	 *
 	 * @var string
@@ -18,10 +19,9 @@ class ExtVariables {
 	/**
 	 * Internal store for variable values
 	 *
-	 * @private
 	 * @var array
 	 */
-	public $mVariables = [];
+	private $mVariables = [];
 
 	/**
 	 * Array with all names of variables requested by '#var_final'. Key of the values is the
@@ -29,29 +29,30 @@ class ExtVariables {
 	 *
 	 * @since 2.0
 	 *
-	 * @private
 	 * @var array
 	 */
-	public $mFinalizedVars = [];
+	private $mFinalizedVars = [];
 
 	/**
-	 * Variables extensions own private StripState manager to manage '#final_var' placeholders
+	 * Variables extensions own private StripState manager to manage 'finalizedvar' placeholders
 	 * and their replacement with the final var value or a defined default.
 	 *
 	 * @since 2.0
 	 *
-	 * @private
 	 * @var StripState
 	 */
-	public $mFinalizedVarsStripState;
+	private $mFinalizedVarsStripState;
 
 	/**
 	 * Sets up parser functions
 	 *
 	 * @since 1.4
+	 *
+	 * @param Parser &$parser
+
+	 * @return bool
 	 */
 	public static function init( Parser &$parser ) {
-
 		/*
 		 * store for variables per parser object. This will solve several bugs related to
 		 * 'ParserClearState' hook clearing all variables early in combination with certain
@@ -60,74 +61,132 @@ class ExtVariables {
 		$parser->mExtVariables = new self();
 
 		// Parser::SFH_OBJECT_ARGS available since MW 1.12
-		self::initFunction( $parser, 'var', [ __CLASS__, 'pfObj_var' ], Parser::SFH_OBJECT_ARGS );
-		self::initFunction( $parser, 'varexists', [ __CLASS__, 'pfObj_varexists' ], Parser::SFH_OBJECT_ARGS );
+		self::initFunction(
+			$parser,
+			'var',
+			[ __CLASS__, 'pfObj_var' ],
+			Parser::SFH_OBJECT_ARGS
+		);
+		self::initFunction(
+			$parser,
+			'varexists',
+			[ __CLASS__, 'pfObj_varexists' ],
+			Parser::SFH_OBJECT_ARGS
+		);
 		self::initFunction( $parser, 'var_final' );
 		self::initFunction( $parser, 'vardefine' );
 		self::initFunction( $parser, 'vardefineecho' );
 
 		return true;
 	}
-	private static function initFunction( Parser &$parser, $name, $functionCallback = null, $flags = 0 ) {
-		if( $functionCallback === null ) {
+
+	private static function initFunction(
+		Parser &$parser,
+		$name,
+		callable $functionCallback = null,
+		$flags = 0
+	) {
+		if ( $functionCallback === null ) {
 			// prefix parser functions with 'pf_'
 			$functionCallback = [ __CLASS__, 'pf_' . $name ];
 		}
 
 		// register function only if not disabled by configuration:
 		global $egVariablesDisabledFunctions;
-		if( ! in_array( $name, $egVariablesDisabledFunctions ) ) {
+		if ( ! in_array( $name, $egVariablesDisabledFunctions ) ) {
 			$parser->setFunctionHook( $name, $functionCallback, $flags );
 		}
 	}
-
 
 	####################
 	# Parser Functions #
 	####################
 
-	static function pf_vardefine( Parser &$parser, $varName = '', $value = '' ) {
+	/**
+	 * Sets up #vardefine parser function to save variable values internally.
+	 * The parameters of the parser function correspond with the parameters of this function.
+	 *
+	 * @param Parser &$parser The parser instance these variables are bound to
+	 * @param string $varName The name of the variable
+	 * @param string $value The value of the defined variable
+	 *
+	 * @return string '' This parser function has no output
+	 */
+	public static function pf_vardefine( Parser &$parser, $varName = '', $value = '' ) {
 		self::get( $parser )->setVarValue( $varName, $value );
 		return '';
 	}
 
-	static function pf_vardefineecho( Parser &$parser, $varName = '', $value = '' ) {
+	/**
+	 * Sets up #vardefineecho parser function to save variable values internally.
+	 * The parameters of the parser function correspond with the parameters of this function.
+	 *
+	 * @param Parser &$parser The parser instance these variables are bound to
+	 * @param string $varName The name of the variable
+	 * @param string $value The value of the defined variable
+	 *
+	 * @return string The value assigned to the variable
+	 */
+	public static function pf_vardefineecho( Parser &$parser, $varName = '', $value = '' ) {
 		self::get( $parser )->setVarValue( $varName, $value );
 		return $value;
 	}
 
-	static function pfObj_varexists( Parser &$parser, $frame, $args ) {
+	/**
+	 * Sets up #varexists parser function to check if a variable was ever defined on a page.
+	 * Even if an empty string is assigned to an variable, it still exists for this function.
+	 * The parameters of the parser function correspond with the content of the $args param.
+	 *
+	 * @param Parser &$parser The parser instance these variables are bound to
+	 * @param PPFrame $frame The current frame
+	 * @param string $args The arguments of the parser function
+	 *
+	 * @return mixed the content of the second or third parameter
+	 * As true and false are cast as string later, 1 or empty string by default
+	 */
+	public static function pfObj_varexists( Parser &$parser, $frame, $args ) {
 		// first argument expanded already but lets do this anyway
 		$varName  = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
 		$exists   = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : true;
 		$noexists = isset( $args[2] ) ? trim( $frame->expand( $args[2] ) ) : false;
 
-		// this prevents issues due to template caching, templates using variables are reparsed every call.
+		// this prevents issues due to template caching,
+		// templates using variables are reparsed every call.
 		global $egVariablesAreVolatile;
 		if ( $egVariablesAreVolatile ) {
 			$frame->setVolatile();
 		}
 
-		if( self::get( $parser )->varExists( $varName ) ) {
+		if ( self::get( $parser )->varExists( $varName ) ) {
 			return $exists;
 		} else {
 			return $noexists;
 		}
 	}
 
-	static function pfObj_var( Parser &$parser, $frame, $args) {
+	/**
+	 * Sets up #var parser function to return the value of a variable.
+	 *
+	 * @param Parser &$parser The parser instance these variables are bound to
+	 * @param PPFrame $frame The current frame
+	 * @param string $args The arguments of the parser function
+	 *
+	 * @return string the value assigned to the variable
+	 */
+	public static function pfObj_var( Parser &$parser, $frame, $args ) {
 		// first argument expanded already but lets do this anyway
 		$varName = trim( $frame->expand( $args[0] ) );
 		$varVal = self::get( $parser )->getVarValue( $varName, null );
 
-		// this prevents issues due to template caching, templates using variables are reparsed every call
+		// this prevents issues due to template caching,
+		// templates using variables are reparsed every call
 		global $egVariablesAreVolatile;
 		if ( $egVariablesAreVolatile ) {
 			$frame->setVolatile();
 		}
 
 		// default applies if var doesn't exist but also in case it is an empty string!
-		if( $varVal === null || $varVal === '' ) {
+		if ( $varVal === null || $varVal === '' ) {
 			// only expand argument when needed:
 			$defaultVal = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : '';
 			return $defaultVal;
@@ -135,10 +194,20 @@ class ExtVariables {
 		return $varVal;
 	}
 
-	static function pf_var_final( Parser &$parser, $varName, $defaultVal = '' ) {
+	/**
+	 * Sets up #var_final parser function to call the final value of an variable
+	 * after parsing the page is done.
+	 * The parameters of the parser function correspond with the parameters of this function.
+	 *
+	 * @param Parser &$parser The parser instance these variables are bound to
+	 * @param string $varName The name of the variable
+	 * @param string $defaultVal The output if no such variable is defined
+	 *
+	 * @return string
+	 */
+	public static function pf_var_final( Parser &$parser, $varName, $defaultVal = '' ) {
 		return self::get( $parser )->requestFinalizedVar( $parser, $varName, $defaultVal );
 	}
-
 
 	##############
 	# Used Hooks #
@@ -149,23 +218,28 @@ class ExtVariables {
 	 * @see http://www.mediawiki.org/wiki/Manual:Hooks/InternalParseBeforeSanitize
 	 *
 	 * @since 2.0.1
+	 *
+	 * @param Parser &$parser
+	 * @param string &$text The text to parse
+	 *
+	 * @return bool
 	 */
-	static function onInternalParseBeforeSanitize( Parser &$parser, &$text ) {
+	public static function onInternalParseBeforeSanitize( Parser &$parser, &$text ) {
 		$varStore = self::get( $parser );
 
 		// only do this if '#var_final' was used
-		if( $varStore->mFinalizedVarsStripState === null ) {
+		if ( $varStore->mFinalizedVarsStripState === null ) {
 			return true;
 		}
 
 		/*
-		 * all vars are final now, check whether requested vars can be inserted for '#final_var' or
+		 * all vars are final now, check whether requested vars can be inserted for 'finalizedvar' or
 		 * if the default has to be inserted. In any case, adjust the strip item value
 		 */
-		foreach( $varStore->mFinalizedVars as $stripStateId => $varName ) {
+		foreach ( $varStore->mFinalizedVars as $stripStateId => $varName ) {
 
 			$varVal = $varStore->getVarValue( $varName, '' );
-			if( $varVal !== '' ) {
+			if ( $varVal !== '' ) {
 				// replace strip item value with final variables value or registered default:
 				$varStore->stripStatePair( $stripStateId, $varVal );
 			}
@@ -174,24 +248,31 @@ class ExtVariables {
 		/**
 		 * Unstrip all '#var_final' strip-markers with their final '#var' or default values.
 		 * This HAS to be done here and can't be done through the normal unstrip process of MW.
-		 * This because the default value as well as the variables value stil have to be rendered properly since they
-		 * may contain links or even category links. On the other hand, they can't be parsed with Parser::recursiveTagParse()
-		 * since this would parse wiki templates and functions which are intended as normal text, kind of similar to
-		 * returning a parser functions value with 'noparse' => true.
-		 * Also, there is no way to expand the '#var_final' default value here, just if needed, since the output could be an
-		 * entirely different, e.g. if variables are used.
-		 * This method also takes care of recursive '#var_final' calls (within the default value) quite well.
+		 * This is because the default value as well as the variables value still have to be
+		 * rendered properly since they may contain links or even category links.
+		 * On the other hand, they can't be parsed with Parser::recursiveTagParse() since this
+		 * would parse wiki templates and functions which are intended as normal text, kind of
+		 * similar to returning a parser functions value with 'noparse' => true.
+		 * Also, there is no way to expand the '#var_final' default value here, just if needed,
+		 * since the output could be an entirely different, e.g. if variables are used.
+		 * This method also takes care of recursive '#var_final' calls
+		 * (within the default value) quite well.
 		 */
 		$text = $varStore->mFinalizedVarsStripState->unstripGeneral( $text );
 		return true;
 	}
 
 	/**
-	 * This will clean up the variables store after parsing has finished. It will prevent strange things to happen
-	 * for example during import of several pages or job queue is running for multiple pages. In these cases variables
-	 * would become some kind of superglobals, being passed from one page to the other.
+	 * This will clean up the variables store after parsing has finished. It will prevent
+	 * strange things to happen for example during import of several pages or job queue is running
+	 * for multiple pages. In these cases variables would become some kind of superglobals,
+	 * being passed from one page to the other.
+	 *
+	 * @param Parser &$parser
+	 *
+	 * @return bool
 	 */
-	static function onParserClearState( Parser &$parser ) {
+	public static function onParserClearState( Parser &$parser ) {
 		/**
 		 * MessageCaches Parser clone will mess things up if we don't reset the entire object.
 		 * Only resetting the array would unset it in the original object as well! This instead
@@ -201,18 +282,19 @@ class ExtVariables {
 		return true;
 	}
 
-
 	##################
 	# Private Helper #
 	##################
 
 	/**
 	 * Takes care of setting a strip state pair
+	 *
+	 * @param string $marker
+	 * @param string $value
 	 */
 	protected function stripStatePair( $marker, $value ) {
 		$this->mFinalizedVarsStripState->addGeneral( $marker, $value );
 	}
-
 
 	####################################
 	# Public functions for interaction #
@@ -251,7 +333,7 @@ class ExtVariables {
 	 * Returns a variables value or null if it doesn't exist.
 	 *
 	 * @param string $varName
-	 * @param mixed $defaultVal
+	 * @param mixed|null $defaultVal
 	 *
 	 * @return string or mixed in case $defaultVal is being returned and not of type string
 	 */
@@ -269,7 +351,7 @@ class ExtVariables {
 	 *
 	 * @param string $varName
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function varExists( $varName ) {
 		$varName = trim( $varName );
@@ -293,14 +375,14 @@ class ExtVariables {
 	 * Note: It's not possible to use the returned strip-item within other stripped text
 	 *       since 'Variables' unstripping will happen before the general unstripping!
 	 *
-	 * @param Parser $parser
+	 * @param Parser &$parser
 	 * @param string $varName
 	 * @param string $defaultVal
 	 *
 	 * @return string strip-item
 	 */
-	function requestFinalizedVar( Parser &$parser, $varName, $defaultVal = '' ) {
-		if( $this->mFinalizedVarsStripState === null ) {
+	public function requestFinalizedVar( Parser &$parser, $varName, $defaultVal = '' ) {
+		if ( $this->mFinalizedVarsStripState === null ) {
 			$this->mFinalizedVarsStripState = new StripState;
 		}
 		$id = count( $this->mFinalizedVars );
