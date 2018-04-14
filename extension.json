@@ -43,7 +43,7 @@
 		"ExtVariables": "ExtVariables.class.php"
 	},
 	"ParserTestFiles": [
-		"/tests/mwparsertests/Variables.txt"
+		"/tests/parser/Variables.txt"
 	],
 	"manifest_version": 2
 }
