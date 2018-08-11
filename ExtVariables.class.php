@@ -10,11 +10,12 @@ class ExtVariables {
 	 * Version of the 'Variables' extension.
 	 * Using this constant is deprecated, please use the data in extension.json instead.
 	 *
+	 * @deprecated since 2.3.0
 	 * @since 1.4
 	 *
 	 * @var string
 	 */
-	const VERSION = '2.4.1';
+	const VERSION = '2.5.0';
 
 	/**
 	 * Internal store for variable values
@@ -80,6 +81,14 @@ class ExtVariables {
 		return true;
 	}
 
+	/**
+	 * Does the actual setup after making sure the functions aren't disabled
+	 *
+	 * @param Parser &$parser
+	 * @param string $name The name of the parser function
+	 * @param callable|null $functionCallback Function to call, constructed from $name if not provided
+	 * @param int $flags Some configuration options, see also definition in Parser.php
+	 */
 	private static function initFunction(
 		Parser &$parser,
 		$name,
@@ -139,16 +148,14 @@ class ExtVariables {
 	 *
 	 * @param Parser &$parser The parser instance these variables are bound to
 	 * @param PPFrame $frame The current frame
-	 * @param string $args The arguments of the parser function
+	 * @param array $args The arguments of the parser function
 	 *
 	 * @return mixed the content of the second or third parameter
 	 * As true and false are cast as string later, 1 or empty string by default
 	 */
-	public static function pfObj_varexists( Parser &$parser, $frame, $args ) {
+	public static function pfObj_varexists( Parser &$parser, PPFrame $frame, array $args ) {
 		// first argument expanded already but lets do this anyway
-		$varName  = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
-		$exists   = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : true;
-		$noexists = isset( $args[2] ) ? trim( $frame->expand( $args[2] ) ) : false;
+		$varName = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
 
 		// this prevents issues due to template caching,
 		// templates using variables are reparsed every call.
@@ -157,9 +164,13 @@ class ExtVariables {
 			$frame->setVolatile();
 		}
 
+		// if you expand these arguments earlier, you parse wikitext you discard later on.
+		// doing so would lead to unexpected effects and decrease performance.
 		if ( self::get( $parser )->varExists( $varName ) ) {
+			$exists = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : true;
 			return $exists;
 		} else {
+			$noexists = isset( $args[2] ) ? trim( $frame->expand( $args[2] ) ) : false;
 			return $noexists;
 		}
 	}
@@ -169,11 +180,11 @@ class ExtVariables {
 	 *
 	 * @param Parser &$parser The parser instance these variables are bound to
 	 * @param PPFrame $frame The current frame
-	 * @param string $args The arguments of the parser function
+	 * @param array $args The arguments of the parser function
 	 *
 	 * @return string the value assigned to the variable
 	 */
-	public static function pfObj_var( Parser &$parser, $frame, $args ) {
+	public static function pfObj_var( Parser &$parser, PPFrame $frame, array $args ) {
 		// first argument expanded already but lets do this anyway
 		$varName = trim( $frame->expand( $args[0] ) );
 		$varVal = self::get( $parser )->getVarValue( $varName, null );
