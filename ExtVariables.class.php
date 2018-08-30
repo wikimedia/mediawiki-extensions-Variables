@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Extension class with basic extension information. This class serves as static
  * class with the static parser functions but also as variables store instance
@@ -19,7 +20,7 @@ class ExtVariables {
 	/**
 	 * Internal store for variable values
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	private $mVariables = [];
 
@@ -29,7 +30,7 @@ class ExtVariables {
 	 *
 	 * @since 2.0
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	private $mFinalizedVars = [];
 
@@ -141,7 +142,7 @@ class ExtVariables {
 	 * @param PPFrame $frame The current frame
 	 * @param string $args The arguments of the parser function
 	 *
-	 * @return mixed the content of the second or third parameter
+	 * @return string|bool the content of the second or third parameter
 	 * As true and false are cast as string later, 1 or empty string by default
 	 */
 	public static function pfObj_varexists( Parser &$parser, $frame, $args ) {
@@ -312,7 +313,7 @@ class ExtVariables {
 	 *
 	 * @param Parser &$parser
 	 *
-	 * @return ExtVariables by reference so we still have the right object after 'ParserClearState'
+	 * @return self by reference so we still have the right object after 'ParserClearState'
 	 */
 	public static function &get( Parser &$parser ) {
 		return $parser->mExtVariables;
@@ -333,9 +334,9 @@ class ExtVariables {
 	 * Returns a variables value or null if it doesn't exist.
 	 *
 	 * @param string $varName
-	 * @param mixed|null $defaultVal
+	 * @param string|null $defaultVal
 	 *
-	 * @return string or mixed in case $defaultVal is being returned and not of type string
+	 * @return string|null
 	 */
 	public function getVarValue( $varName, $defaultVal = null ) {
 		$varName = trim( $varName );
@@ -361,7 +362,7 @@ class ExtVariables {
 	/**
 	 * Allows to unset a certain variable
 	 *
-	 * @param type $varName
+	 * @param string $varName
 	 */
 	public function unsetVar( $varName ) {
 		unset( $this->mVariables[ $varName ] );
