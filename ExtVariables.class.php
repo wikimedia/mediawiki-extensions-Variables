@@ -49,8 +49,6 @@ class ExtVariables {
 	 * @since 1.4
 	 *
 	 * @param Parser &$parser
-
-	 * @return bool
 	 */
 	public static function init( Parser &$parser ) {
 		/*
@@ -76,8 +74,6 @@ class ExtVariables {
 		self::initFunction( $parser, 'var_final' );
 		self::initFunction( $parser, 'vardefine' );
 		self::initFunction( $parser, 'vardefineecho' );
-
-		return true;
 	}
 
 	private static function initFunction(
@@ -221,15 +217,13 @@ class ExtVariables {
 	 *
 	 * @param Parser &$parser
 	 * @param string &$text The text to parse
-	 *
-	 * @return bool
 	 */
 	public static function onInternalParseBeforeSanitize( Parser &$parser, &$text ) {
 		$varStore = self::get( $parser );
 
 		// only do this if '#var_final' was used
 		if ( $varStore->mFinalizedVarsStripState === null ) {
-			return true;
+			return;
 		}
 
 		/*
@@ -259,7 +253,6 @@ class ExtVariables {
 		 * (within the default value) quite well.
 		 */
 		$text = $varStore->mFinalizedVarsStripState->unstripGeneral( $text );
-		return true;
 	}
 
 	/**
@@ -269,8 +262,6 @@ class ExtVariables {
 	 * being passed from one page to the other.
 	 *
 	 * @param Parser &$parser
-	 *
-	 * @return bool
 	 */
 	public static function onParserClearState( Parser &$parser ) {
 		/**
@@ -279,7 +270,6 @@ class ExtVariables {
 		 * will break the entire reference to the object
 		 */
 		$parser->mExtVariables = new self();
-		return true;
 	}
 
 	##################
