@@ -147,8 +147,8 @@ class ExtVariables {
 	 * @param PPFrame $frame The current frame
 	 * @param array $args The arguments of the parser function
 	 *
-	 * @return string|bool the content of the second or third parameter
-	 * As true and false are cast as string later, 1 or empty string by default
+	 * @return string the content of the second or third parameter
+	 * If none are provided, 1 or empty string by default
 	 */
 	public static function pfObj_varexists( Parser &$parser, PPFrame $frame, array $args ) {
 		// first argument expanded already but lets do this anyway
@@ -164,10 +164,10 @@ class ExtVariables {
 		// if you expand these arguments earlier, you parse wikitext you discard later on.
 		// doing so would lead to unexpected effects and decrease performance.
 		if ( self::get( $parser )->varExists( $varName ) ) {
-			$exists = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : true;
+			$exists = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : '1';
 			return $exists;
 		} else {
-			$noexists = isset( $args[2] ) ? trim( $frame->expand( $args[2] ) ) : false;
+			$noexists = isset( $args[2] ) ? trim( $frame->expand( $args[2] ) ) : '';
 			return $noexists;
 		}
 	}
