@@ -104,9 +104,7 @@ class ExtVariables {
 		}
 	}
 
-	####################
-	# Parser Functions #
-	####################
+	// Parser Functions
 
 	/**
 	 * Sets up #vardefine parser function to save variable values internally.
@@ -217,9 +215,7 @@ class ExtVariables {
 		return self::get( $parser )->requestFinalizedVar( $parser, $varName, $defaultVal );
 	}
 
-	##############
-	# Used Hooks #
-	##############
+	// Used Hooks
 
 	/**
 	 * Used for '#var_final' parser function to insert the final variable values.
@@ -284,9 +280,7 @@ class ExtVariables {
 		$parser->mExtVariables = new self();
 	}
 
-	##################
-	# Private Helper #
-	##################
+	// Private Helper
 
 	/**
 	 * Takes care of setting a strip state pair
@@ -298,14 +292,11 @@ class ExtVariables {
 		$this->mFinalizedVarsStripState->addGeneral( $marker, $value );
 	}
 
-	####################################
-	# Public functions for interaction #
-	####################################
-	#
-	# public non-parser functions, accessible for
-	# other extensions doing interactive stuff
-	# with 'Variables' (like Extension:Loops)
-	#
+	// Public functions for interaction
+	//
+	// Public non-parser functions, accessible for
+	// other extensions doing interactive stuff
+	// with 'Variables' (like Extension:Loops)
 
 	/**
 	 * Convenience function to return the 'Variables' extensions variables store connected
