@@ -60,19 +60,8 @@ class ExtVariables {
 		 */
 		$parser->mExtVariables = new self();
 
-		// Parser::SFH_OBJECT_ARGS available since MW 1.12
-		self::initFunction(
-			$parser,
-			'var',
-			[ __CLASS__, 'pfObj_var' ],
-			Parser::SFH_OBJECT_ARGS
-		);
-		self::initFunction(
-			$parser,
-			'varexists',
-			[ __CLASS__, 'pfObj_varexists' ],
-			Parser::SFH_OBJECT_ARGS
-		);
+		self::initFunction( $parser, 'var', Parser::SFH_OBJECT_ARGS );
+		self::initFunction( $parser, 'varexists', Parser::SFH_OBJECT_ARGS );
 		self::initFunction( $parser, 'var_final' );
 		self::initFunction( $parser, 'vardefine' );
 		self::initFunction( $parser, 'vardefineecho' );
@@ -83,24 +72,15 @@ class ExtVariables {
 	 *
 	 * @param Parser &$parser
 	 * @param string $name The name of the parser function
-	 * @param callable|null $functionCallback Function to call, constructed from $name if not provided
 	 * @param int $flags Some configuration options, see also definition in Parser.php
 	 */
-	private static function initFunction(
-		Parser &$parser,
-		$name,
-		callable $functionCallback = null,
-		$flags = 0
-	) {
-		if ( $functionCallback === null ) {
-			// prefix parser functions with 'pf_'
-			$functionCallback = [ __CLASS__, 'pf_' . $name ];
-		}
-
+	private static function initFunction( Parser &$parser, $name, $flags = 0 ) {
 		// register function only if not disabled by configuration:
 		global $egVariablesDisabledFunctions;
 		if ( ! in_array( $name, $egVariablesDisabledFunctions ) ) {
-			$parser->setFunctionHook( $name, $functionCallback, $flags );
+			// all parser functions with prefix:
+			$prefix = ( $flags & Parser::SFH_OBJECT_ARGS ) ? 'pfObj_' : 'pf_';
+			$parser->setFunctionHook( $name, [ __CLASS__, $prefix . $name ], $flags );
 		}
 	}
 
