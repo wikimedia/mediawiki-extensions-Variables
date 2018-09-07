@@ -1,13 +1,53 @@
 === git era Changelog ===
 
-; (trunk): v2.0.1
+Please note that the git era changelog isn't complete regarding internal adjustments.
+Only things that are major architecture change or might break compatibility with MediaWiki
+versions and other extensions is collected here.
+
+; 2018-08-30: v2.5.0, by MGChecker
+* Fix '#varexists' parsing (T202679)
+** if and else value are no longer expanded if not needed, thus variable definitions can be
+   done conditionally and making the parser faster
+
+; 2018-08-24: v2.4.1, by MGChecker
+* Class attributes of ExtVariables changed to private, as it has been annotated before.
+
+; 2018-04-20: v2.4.0, by MGChecker
+* Fix longstanding template caching issues (T191574)
+** Template caching could mess up definition of Variables depending on other Variables in
+   templates, if they are called multiple times. This won't happen anymore, as the parser
+   frame is marked as volatile by the extension.
+** This new behavior can be deactivated by setting '$egVariablesAreVolatile' to false,
+   however be aware that this is a temporary option for transition and will be removed in
+   the future.
+
+; 2018-01-23: v2.3.0 by MGChecker
+* Conversion to Extension registration (T173625)
+* ExtVariables::VERSION is deprecated, use Extension registration instead [1]
+* Drop support for MediaWiki before 1.29
+* Remove Variables.settings.php file, as supersed by Extension registration
+
+; 2017-09-25: (trunk) by Leonid Verhovskij
+* Add composer.json for easy autoloading of required librariers and the extension itself
+
+; 2017-07-27: v2.2.0 by Karsten Hoffmeyer
+* Removal of backwards compatibility code for old MediaWiki versions
+** Removal of i18n compatibility shim
+** Removal of InternalParseBeforeLinks hook
+
+; 2016-03-07: (trunk) by Antoine Musso
+* Removal of the unique marker passed to StripState
+* Drop support support for MediaWiki before 1.26
+
+; 2014-04-01: v2.1.0 by Siebrand Mazeland
+* Migration from PHP i18n to JSON i18n
+* Addition of PHP i18n compatibility shim
+
+; 2012-06-24: v2.0.1 by Daniel Werner
 * Using 'InternalParseBeforeSanitize' hook instead of 'InternalParseBeforeLinks' for MW 1.20
 * Put into gerrit.wikimedia.org git repository.
 
 === svn era Changelog ===
-
-; (trunk): v2.0.1
-* Localization added for various languages.
 
 ; 2010-11-16: v2.0 by Daniel Werner
 * Version 2.0 almost is a complete rewrite of the extension, just the idea remains the
@@ -54,14 +94,11 @@
 * 'ExtVariables::VARIABLES' constant with version info added.
 * Put into mediawiki.org svn, 'RELEASE-NOTES' and 'README' files added.
 
-
 === Pre svn Changelog ===
 
 The following pre-svn changelog was composed by Daniel Werner in the hope it might
 give an almost complete overview of all major releases of 'Variables' extension.
-All changes can still be retrace at
-
-https://www.mediawiki.org/w/index.php?title=Extension:VariablesExtension&action=history
+All changes can still be retrace at [2]
 
 ; 2010-07-20: v1.3 by Daniel Werner
 * Removed critical bug. Some kind of "Superglobal" variables. In some cases values
@@ -75,10 +112,16 @@ https://www.mediawiki.org/w/index.php?title=Extension:VariablesExtension&action=
 ; 2008-12-05: v1.1 by user 'Xiloynaha'
 * '#vardefineecho' function introduced
 
-; 2007-06-24: r3, Language file added by unknown contributor
+; 2007-06-24: r3 by unknown contributor
+* Language file added
 
-; 2006-10-11: r2, Fixes for MediaWiki 1.8 compatibility by Tom Hempel
+; 2006-10-11: r2 by Tom Hempel
+* Fixes for MediaWiki 1.8 compatibility
 * '$wgExtensionCredits' and '$wgHooks' being used.
 
-; 2006-10-11: r1, initial release by Rob Adams
+; 2006-10-11: r1 by Rob Adams
 * First version of 'Variables', introducing '#vardefine' and '#var'
+
+=== References ===
+[1] https://www.mediawiki.org/wiki/Manual:Extension_registration#Check,_if_an_extension_is_loaded_without_actually_requiring_it
+[2] https://www.mediawiki.org/w/index.php?title=Extension:VariablesExtension&action=history
