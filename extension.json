@@ -1,6 +1,6 @@
 {
 	"name": "Variables",
-	"version": "2.5.0",
+	"version": "2.5.1",
 	"author": [
 		"Rob Adams",
 		"Tom Hempel",
@@ -33,9 +33,9 @@
 		}
 	},
 	"Hooks": {
-		"ParserFirstCallInit": "ExtVariables::init",
-		"ParserClearState": "ExtVariables::onParserClearState",
-		"InternalParseBeforeSanitize": "ExtVariables::onInternalParseBeforeSanitize"
+		"ParserFirstCallInit": "VariablesHooks::onParserFirstCallInit",
+		"ParserClearState": "VariablesHooks::onParserClearState",
+		"InternalParseBeforeSanitize": "VariablesHooks::onInternalParseBeforeSanitize"
 	},
 	"MessagesDirs": {
 		"Variables": [
@@ -46,7 +46,8 @@
 		"VariablesMagic": "Variables.i18n.magic.php"
 	},
 	"AutoloadClasses": {
-		"ExtVariables": "ExtVariables.class.php"
+		"ExtVariables": "includes/ExtVariables.php",
+		"VariablesHooks": "includes/VariablesHooks.php"
 	},
 	"ParserTestFiles": [
 		"/tests/parser/Variables.txt"

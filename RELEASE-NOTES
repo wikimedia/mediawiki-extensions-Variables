@@ -4,6 +4,11 @@ Please note that the git era changelog isn't complete regarding internal adjustm
 Only things that are major architecture change or might break compatibility with MediaWiki
 versions and other extensions is collected here.
 
+; 2019-03-09: v2.5.1, by MGChecker
+* Moving hook functions to separate VariablesHooks class (T202412)
+* Moving code files into includes/ directory
+* Renaming files to match class name
+
 ; 2018-08-30: v2.5.0, by MGChecker
 * Fix '#varexists' parsing (T202679)
 ** if and else value are no longer expanded if not needed, thus variable definitions can be
