@@ -2,10 +2,11 @@
 <ruleset>
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
 		<exclude name="MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName" />
-		<exclude name="MediaWiki.NamingConventions.ValidGlobalName.allowedPrefix" />
 		<exclude name="MediaWiki.Files.ClassMatchesFilename.NotMatch" />
+	</rule>
+	<rule ref="MediaWiki.NamingConventions.ValidGlobalName">
 		<properties>
-			<property name="allowedPrefixes" type="array" value="eg" />
+			<property name="allowedPrefixes" type="array" value="eg,wg" />
 		</properties>
 	</rule>
 	<file>.</file>
