@@ -4,6 +4,10 @@ Please note that the git era changelog isn't complete regarding internal adjustm
 Only things that are major architecture change or might break compatibility with MediaWiki
 versions and other extensions is collected here.
 
+
+; 2019-07-11: v2.5.2, by MGChecker
+* Removal of PHP entry point, use wfLoadExtension( 'Variables' ) instead
+
 ; 2019-03-09: v2.5.1, by MGChecker
 * Moving hook functions to separate VariablesHooks class (T202412)
 * Moving code files into includes/ directory
