@@ -5,8 +5,8 @@ if ( version_compare( $wgVersion, '1.29', '>=' ) ) {
 	$wgMessagesDirs['Variables'] = __DIR__ . '/i18n';
 	$wgExtensionMessagesFiles['VariablesMagic'] = __DIR__ . '/Variables.i18n.magic.php';
 	wfWarn(
-		'Deprecated PHP entry point used for Cite extension. Please use wfLoadExtension instead, ' .
-		'see https://www.mediawiki.org/wiki/Extension_registration for more details.'
+		'Deprecated PHP entry point used for Variables extension. Please use wfLoadExtension ' .
+		'instead, see https://www.mediawiki.org/wiki/Extension_registration for more details.'
 	);
 	return;
 } else {
