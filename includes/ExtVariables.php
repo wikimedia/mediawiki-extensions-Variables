@@ -260,7 +260,7 @@ class ExtVariables {
 		 * In case the requested final variable has a value in the end, this strip-item
 		 * value will be replaced with that value before unstripping.
 		 */
-		$rnd = "{$parser->mUniqPrefix}-finalizedvar-{$id}-" . Parser::MARKER_SUFFIX;
+		$rnd = Parser::MARKER_PREFIX . "-finalizedvar-{$id}-" . Parser::MARKER_SUFFIX;
 
 		$this->stripStatePair( $rnd, trim( $defaultVal ) );
 		$this->mFinalizedVars[ $rnd ] = trim( $varName );
