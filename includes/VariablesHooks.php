@@ -67,7 +67,7 @@ class VariablesHooks {
 
 	/**
 	 * Used for '#var_final' parser function to insert the final variable values.
-	 * @see http://www.mediawiki.org/wiki/Manual:Hooks/InternalParseBeforeSanitize
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/InternalParseBeforeSanitize
 	 *
 	 * @since 2.0.1
 	 *
