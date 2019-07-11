@@ -49,8 +49,5 @@
 		"ExtVariables": "includes/ExtVariables.php",
 		"VariablesHooks": "includes/VariablesHooks.php"
 	},
-	"ParserTestFiles": [
-		"/tests/parser/Variables.txt"
-	],
 	"manifest_version": 2
 }
