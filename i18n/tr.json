@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"BaRaN6161 TURK"
+		]
+	},
+	"variables-desc": "Makale kapsamındaki bir bağlamda dinamik değişkenlerle çalışmayı sağlayan ayrıştırıcı işlevler",
+	"variables-config-disabledfunctions": "Wiki içinde bulunmaması gereken bir fonksiyon dizisi tanımlamanıza izin verir. İşlev eklerken herhangi bir # işaretini kaldırın.",
+	"variables-config-arevolatile": "#var ve #varexists ayrıştırıcı işlevlerini, şablon önbelleğe alma nedeniyle beklenmeyen davranışları önlemek için geçici işlevi görür. Bunu devre dışı bırakmak, eski davranışı eski haline getirir."
+}
