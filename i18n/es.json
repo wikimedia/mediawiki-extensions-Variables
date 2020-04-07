@@ -2,8 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Armando-Martin",
-			"Fitoschido",
-			"Ciencia Al Poder"
+			"Ciencia Al Poder",
+			"Fitoschido"
 		]
 	},
 	"variables-desc": "Funciones de analizador (parser) que permiten trabajar con variables dinámicas en el contexto de un artículo",

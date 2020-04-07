@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Obsuser",
-			"Acamicamacaraca"
+			"Acamicamacaraca",
+			"Obsuser"
 		]
 	},
 	"variables-desc": "Парсер функције које омогућавају рад са динамичким варијаблама у контексту чланка"

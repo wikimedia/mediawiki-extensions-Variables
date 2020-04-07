@@ -1,10 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"MGChecker",
 			"Purodha",
 			"Shirayuki",
-			"Umherirrender",
-			"MGChecker"
+			"Umherirrender"
 		]
 	},
 	"variables-desc": "{{desc|name=Variables|url=https://www.mediawiki.org/wiki/Extension:Variables}}",

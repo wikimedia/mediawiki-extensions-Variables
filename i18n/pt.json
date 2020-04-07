@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Hamilton Abreu",
-			"Athena in Wonderland"
+			"Athena in Wonderland",
+			"Hamilton Abreu"
 		]
 	},
 	"variables-desc": "Funções do analisador sintático que permitem trabalhar com variáveis dinâmicas num contexto limitado ao âmbito de uma página",
