@@ -22,7 +22,6 @@
 			"value": [],
 			"path": false,
 			"descriptionmsg": "variables-config-disabledfunctions",
-			"@example": "$egVariablesDisabledFunctions = [ 'var_final', 'vardefineecho' ]; // to disable '#var_final' and '#vardefineecho' functions",
 			"public": true
 		},
 		"VariablesAreVolatile": {
