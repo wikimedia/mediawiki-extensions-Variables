@@ -140,6 +140,18 @@ Template:IssetA
 {{#varexists: a }}
 !! endarticle
 
+!! article
+Template:DefineA
+!! text
+{{#vardefine: a | w }}
+!! endarticle
+
+!! article
+Template:DefineEchoA
+!! text
+{{#vardefineecho: a | z }}
+!! endarticle
+
 !! test
 By default, there shouldn't be any template caching if Variables are used.
 !! config
@@ -158,6 +170,29 @@ egVariablesAreVolatile=true
 !! end
 
 !! test
+This is also true for vardefine(echo).
+!! config
+egVariablesAreVolatile=true
+!! wikitext
+{{DefineA}}"{{#var: a }}"
+{{#vardefine: a | x }}"{{#var: a }}"
+{{DefineA}}"{{#var: a }}"
+"{{DefineEchoA}}"
+"{{#vardefineecho: a | y }}"
+"{{DefineEchoA}}"
+"{{#var: a }}"
+!! html
+<p>"w"
+"x"
+"w"
+"z"
+"y"
+"z"
+"z"
+</p>
+!! end
+
+!! test
 However, it's possible to activate the legacy behavior to activate template caching.
 !! config
 egVariablesAreVolatile=false
@@ -171,5 +206,28 @@ egVariablesAreVolatile=false
 "x"
 ""
 "x"
+</p>
+!! end
+
+!! test
+This also deativates it for vardefine(echo).
+!! config
+egVariablesAreVolatile=false
+!! wikitext
+{{DefineA}}"{{#var: a }}"
+{{#vardefine: a | x }}"{{#var: a }}"
+{{DefineA}}"{{#var: a }}"
+"{{DefineEchoA}}"
+"{{#vardefineecho: a | y }}"
+"{{DefineEchoA}}"
+"{{#var: a }}"
+!! html
+<p>"w"
+"x"
+"x"
+"z"
+"y"
+"z"
+"y"
 </p>
 !! end
