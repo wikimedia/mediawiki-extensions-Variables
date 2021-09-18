@@ -1,6 +1,6 @@
 {
 	"name": "Variables",
-	"version": "2.5.1",
+	"version": "2.5.3",
 	"author": [
 		"Rob Adams",
 		"Tom Hempel",
@@ -34,7 +34,7 @@
 	"Hooks": {
 		"ParserFirstCallInit": "VariablesHooks::onParserFirstCallInit",
 		"ParserClearState": "VariablesHooks::onParserClearState",
-		"InternalParseBeforeSanitize": "VariablesHooks::onInternalParseBeforeSanitize"
+		"ParserAfterParse": "VariablesHooks::onParserAfterParse"
 	},
 	"MessagesDirs": {
 		"Variables": [

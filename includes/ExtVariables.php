@@ -271,14 +271,27 @@ class ExtVariables {
 	/**
 	 * Does the actual insertion of the finalized var values in place of the strip-markers.
 	 *
-	 * @param string $text The text to parse
-	 * @return string The parsed text
+	 * @param Parser $parser
+	 * @param string &$text The text to parse
 	 */
-	public function insertFinalizedVars( $text ) {
+	public function insertFinalizedVars( Parser $parser, &$text ) {
 		// only do this if '#var_final' was used
 		if ( $this->mFinalizedVarsStripState === null ) {
-			return $text;
+			return;
 		}
+
+		$text = Sanitizer::removeHTMLtags(
+			$text,
+			// Callback from the Sanitizer for expanding items found in
+			// HTML attribute values, so they can be safely tested and escaped.
+			static function ( $parser, &$text ) {
+				$text = $parser->replaceVariables( $text, false );
+				$text = $parser->getStripState()->unstripBoth( $text );
+			},
+			false,
+			[],
+			[]
+		);
 
 		/*
 		 * all vars are final now, check whether requested vars can be inserted for 'finalizedvar' or
@@ -306,6 +319,5 @@ class ExtVariables {
 		 * (within the default value) quite well.
 		 */
 		$text = $this->mFinalizedVarsStripState->unstripGeneral( $text );
-		return $text;
 	}
 }
