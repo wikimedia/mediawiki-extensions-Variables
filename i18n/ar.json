@@ -1,10 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
+			"SaldırganSincap",
 			"ديفيد"
 		]
 	},
 	"variables-desc": "دالات محلل تسمح بالعمل مع المتغيرات الديناميكية في سياق نطاق مقالة",
-	"variables-config-disabledfunctions": "يسمح بتحديد مجموعة من الوظائف التي لا ينبغي أن تكون متاحة في الويكي، احذف أي # أثناء إضافة الوظائف.",
+	"variables-config-disabledfunctions": "يسمح بتحديد مجموعة من الوظائف التي لا ينبغي أن تكون متاحة في الويكي، احذف أي # أثناء إضافة الوظائف.\nفمثلا: $egVariablesDisabledFunctions = [ 'var_final', 'vardefineecho' ]; // لتعطيل وظائف '#var_final' و'#vardefineecho'",
 	"variables-config-arevolatile": "يعامل دالات محلل #var و#varexists كمتغيرة لمنع حدوث سلوك غير متوقع بسبب التخزين المؤقت للقالب، يؤدي تعطيل هذا إلى إرجاع السلوك القديم."
 }
