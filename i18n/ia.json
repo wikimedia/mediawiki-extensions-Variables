@@ -5,5 +5,6 @@
 		]
 	},
 	"variables-desc": "Functiones del analysator syntactic que permitte laborar con variabiles dynamic in un \"article scoped context\"",
-	"variables-config-disabledfunctions": "Isto permitte definir un serie de functiones que non debe esser disponibile in le wiki. Omitte tote # quando tu adde functiones.\nPer exemplo: $egVariablesDisabledFunctions = [ 'var_final', 'vardefineecho' ]; // pro disactivar le functiones '#var_final' e '#vardefineecho'"
+	"variables-config-disabledfunctions": "Isto permitte definir un serie de functiones que non debe esser disponibile in le wiki. Omitte tote # quando tu adde functiones.\nPer exemplo: $egVariablesDisabledFunctions = [ 'var_final', 'vardefineecho' ]; // pro disactivar le functiones '#var_final' e '#vardefineecho'",
+	"variables-config-arevolatile": "Tracta le functiones del analysator syntactic #var e #varexists como volatile pro impedir comportamentos inexpectate debite al cache de patronos. Disactivar isto restaura le comportamento ancian."
 }
