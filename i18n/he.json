@@ -6,5 +6,6 @@
 		]
 	},
 	"variables-desc": "פונקציות מפענח שמאפשרות עבודה עם משתנים דינמיים בהקשר בתחום של ערך",
+	"variables-config-disabledfunctions": "אפשרות להגדיר מערך של פונקציות שלא אמורות להיות זמינות בוויקי. יש להשמיט כל # בזמן הוספת פונקציות.\nלמשל:\n‎$egVariablesDisabledFunctions = [ 'var_final', 'vardefineecho' ]; // to disable '#var_final' and '#vardefineecho' functions‏",
 	"variables-config-arevolatile": "התייחסות לפונקציות המפענח <span dir=\"ltr\">#var</span> ו־<span dir=\"ltr\">#varexists</span> כפונקציות נדיפות כדי למנוע פעולות בלתי־צפויות שעלולות להיגרם כתוצאה משמירת התבניות במטמון. ביטול האפשרות הזאת יחזיר את ההתנהגות הקודמת."
 }
