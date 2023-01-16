@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eleassar"
+		]
+	},
+	"variables-desc": "Funkcije razčlenjevalnika, ki omogočajo delo z dinamičnimi spremenljivkami v kontekstu člankov.",
+	"variables-config-disabledfunctions": "Omogoča definiranje niza funkcij, ki ne bi smele biti na voljo znotraj vikija. Med dodajanjem funkcij izpustite kateri koli #.\nNa primer: $egVariablesDisabledFunctions = [ 'var_final', 'vardefineecho' ]; // za onemogočenje funkcij '#var_final' in '#vardefineecho'",
+	"variables-config-arevolatile": "Funkciji razčlenjevalnika #var in #varexists obravnava kot nestanovitni, da prepreči nepričakovano vedenje zaradi predpomnjenja predloge. Če to onemogočite, se obnovi starejše vedenje."
+}
