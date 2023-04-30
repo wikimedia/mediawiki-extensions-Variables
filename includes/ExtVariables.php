@@ -280,18 +280,7 @@ class ExtVariables {
 			return;
 		}
 
-		$text = Sanitizer::removeHTMLtags(
-			$text,
-			// Callback from the Sanitizer for expanding items found in
-			// HTML attribute values, so they can be safely tested and escaped.
-			static function ( $parser, &$text ) {
-				$text = $parser->replaceVariables( $text, false );
-				$text = $parser->getStripState()->unstripBoth( $text );
-			},
-			false,
-			[],
-			[]
-		);
+		$text = Sanitizer::removeSomeTags( $text );
 
 		/*
 		 * all vars are final now, check whether requested vars can be inserted for 'finalizedvar' or
