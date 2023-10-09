@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Dreamy Jazz"
+		]
+	},
+	"variables-config-arevolatile": "Treats the #var and #varexists parser functions as volatile to prevent unexpected behaviour due to template caching. Disabling this reinstates the legacy behaviour."
+}
