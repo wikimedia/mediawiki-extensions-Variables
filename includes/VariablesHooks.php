@@ -24,8 +24,8 @@ class VariablesHooks {
 		self::initFunction( $parser, 'var', Parser::SFH_OBJECT_ARGS );
 		self::initFunction( $parser, 'varexists', Parser::SFH_OBJECT_ARGS );
 		self::initFunction( $parser, 'var_final' );
-		self::initFunction( $parser, 'vardefine' );
-		self::initFunction( $parser, 'vardefineecho' );
+		self::initFunction( $parser, 'vardefine', Parser::SFH_OBJECT_ARGS );
+		self::initFunction( $parser, 'vardefineecho', Parser::SFH_OBJECT_ARGS );
 	}
 
 	/**

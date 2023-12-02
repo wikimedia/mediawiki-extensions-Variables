@@ -52,13 +52,24 @@ class ExtVariables {
 	 * The parameters of the parser function correspond with the parameters of this function.
 	 *
 	 * @param Parser $parser The parser instance these variables are bound to
-	 * @param string $varName The name of the variable
-	 * @param string $value The value of the defined variable
+	 * @param PPFrame $frame The current frame
+	 * @param array $args The arguments of the parser function
 	 *
 	 * @return string '' This parser function has no output
 	 */
-	public static function pf_vardefine( Parser $parser, $varName = '', $value = '' ) {
-		self::get( $parser )->setVarValue( $varName, $value );
+	public static function pfObj_vardefine( Parser $parser, PPFrame $frame, array $args ) {
+		// first argument expanded already but lets do this anyway
+		$varName = trim( $frame->expand( $args[0] ) );
+		$varVal = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : '';
+
+		// this prevents issues due to template caching,
+		// templates using variables are reparsed every call.
+		global $egVariablesAreVolatile;
+		if ( $egVariablesAreVolatile ) {
+			$frame->setVolatile();
+		}
+
+		self::get( $parser )->setVarValue( $varName, $varVal );
 		return '';
 	}
 
@@ -67,14 +78,25 @@ class ExtVariables {
 	 * The parameters of the parser function correspond with the parameters of this function.
 	 *
 	 * @param Parser $parser The parser instance these variables are bound to
-	 * @param string $varName The name of the variable
-	 * @param string $value The value of the defined variable
+	 * @param PPFrame $frame The current frame
+	 * @param array $args The arguments of the parser function
 	 *
 	 * @return string The value assigned to the variable
 	 */
-	public static function pf_vardefineecho( Parser $parser, $varName = '', $value = '' ) {
-		self::get( $parser )->setVarValue( $varName, $value );
-		return $value;
+	public static function pfObj_vardefineecho( Parser $parser, PPFrame $frame, array $args ) {
+		// first argument expanded already but lets do this anyway
+		$varName = trim( $frame->expand( $args[0] ) );
+		$varVal = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : '';
+
+		// this prevents issues due to template caching,
+		// templates using variables are reparsed every call.
+		global $egVariablesAreVolatile;
+		if ( $egVariablesAreVolatile ) {
+			$frame->setVolatile();
+		}
+
+		self::get( $parser )->setVarValue( $varName, $varVal );
+		return $varVal;
 	}
 
 	/**

@@ -4,6 +4,13 @@ Please note that the git era changelog isn't complete regarding internal adjustm
 Only things that are major architecture change or might break compatibility with MediaWiki
 versions and other extensions is collected here.
 
+; TBC: v2.6.0, by MGChecker and …
+* Fix further template caching issues
+** Template caching could mess up resetting Variables via repeated template calls.
+   This won't happen anymore, as the parser frame is marked as volatile by the extension.
+** This new behavior can be deactivated by setting '$egVariablesAreVolatile' to false,
+   however be aware that this is a temporary option for transition and will be removed in
+   the future.
 
 ; 2019-07-11: v2.5.2, by MGChecker
 * Removal of PHP entry point, use wfLoadExtension( 'Variables' ) instead
