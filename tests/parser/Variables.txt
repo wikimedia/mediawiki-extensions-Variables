@@ -231,3 +231,108 @@ egVariablesAreVolatile=false
 "y"
 </p>
 !! end
+
+!! test
+Variables can be substituted.
+!! options
+pst
+!! wikitext
+"{{subst:#vardefineecho: d | 1 }}"
+"{{subst:#var: d }}"
+!! html
+"1"
+"1"
+!! end
+
+!! test
+Substitutions are parsed in a different parser run than other Variables.
+!! options
+pst
+!! wikitext
+"{{subst:#vardefine: d | 1 }}"
+"{{#vardefine: d | 2 }}"
+"{{subst:#var: d }}"
+"{{subst:#vardefine: d | 3 }}"
+"{{#var: d }}"
+!! html
+""
+"{{#vardefine: d | 2 }}"
+"1"
+""
+"{{#var: d }}"
+!! end
+
+!! test
+#var_final can be substituted as well.
+!! options
+pst
+!! wikitext
+"{{subst:#vardefineecho: a | x }}"
+"{{subst:#var_final: a }}"
+"{{subst:#vardefine: a | y }}"
+!! html
+"x"
+"y"
+""
+!! end
+
+!! test
+(Simple) Wikitext in #var_final is parsed
+!! wikitext
+{{#vardefine:a| [[Lunar Prospector]] }}
+obtained by {{#var_final:a}}
+!! html
+<p>obtained by <a href="/index.php?title=Lunar_Prospector&amp;action=edit&amp;redlink=1" class="new" title="Lunar Prospector (page does not exist)">Lunar Prospector</a>
+</p>
+!! end
+
+!! test
+Even when #var_final is substituted
+!! options
+pst
+!! wikitext
+"{{subst:#vardefine:a| [[Lunar Prospector]] }}"
+obtained by {{subst:#var_final:a}}
+!! html
+""
+obtained by [[Lunar Prospector]]
+!! end
+
+!! test
+Even when it is a category link
+!! options
+cat
+!! wikitext
+{{#vardefine: a | x }}{{#var_final: a }}{{#vardefine: a | [[Category:MediaWiki User's Guide]] }}
+!! html
+cat=MediaWiki_User's_Guide sort=
+!! end
+
+!! test
+And substituted
+!! options
+pst
+!! wikitext
+{{subst:#vardefine: a | x }}{{subst:#var_final: a }}{{subst:#vardefine: a | [[Category:MediaWiki User's Guide]] }}
+!! html
+[[Category:MediaWiki User's Guide]]
+!! end
+
+!! test
+#var_final with nowiki tags
+!! wikitext
+{{#vardefine:test|1 '''<i>Test</i>''' <nowiki>'''<i>nowiki</i>'''</nowiki>}}{{#var_final:test}}{{#vardefine:test|2 '''<i>Test</i>''' <nowiki>'''<i>nowiki</i>'''</nowiki>}}
+!! html
+<p>2 <b><i>Test</i></b> '''&lt;i&gt;nowiki&lt;/i&gt;'''
+</p>
+!! end
+
+!! test
+#var_final substituted, with nowiki tags
+!! options
+pst
+!! wikitext
+{{subst:#vardefine:test|1 '''<i>Test</i>''' <nowiki>'''<i>nowiki</i>'''</nowiki>}}{{subst:#var_final:test}}{{subst:#vardefine:test|2 '''<i>Test</i>''' <nowiki>'''<i>nowiki</i>'''</nowiki>}}
+!! html
+2 '''<i>Test</i>''' <nowiki>'''<i>nowiki</i>'''</nowiki>
+!! end

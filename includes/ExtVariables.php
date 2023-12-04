@@ -16,7 +16,7 @@ class ExtVariables {
 	 *
 	 * @var string
 	 */
-	const VERSION = '2.5.1';
+	const VERSION = '2.6.0-beta';
 
 	/**
 	 * Internal store for variable values
@@ -27,23 +27,13 @@ class ExtVariables {
 
 	/**
 	 * Array with all names of variables requested by '#var_final'. Key of the values is the
-	 * stripSateId of the strip-item placed where the final var should appear.
+	 * stripStateId of the strip-item placed where the final var should appear.
 	 *
 	 * @since 2.0
 	 *
-	 * @var string[]
+	 * @var array<string,array<string,string>>
 	 */
 	private $mFinalizedVars = [];
-
-	/**
-	 * Variables extensions own private StripState manager to manage 'finalizedvar' placeholders
-	 * and their replacement with the final var value or a defined default.
-	 *
-	 * @since 2.0
-	 *
-	 * @var StripState
-	 */
-	private $mFinalizedVarsStripState;
 
 	// Parser Functions
 
@@ -178,18 +168,6 @@ class ExtVariables {
 		return self::get( $parser )->requestFinalizedVar( $parser, $varName, $defaultVal );
 	}
 
-	// Private Helper
-
-	/**
-	 * Takes care of setting a strip state pair
-	 *
-	 * @param string $marker
-	 * @param string $value
-	 */
-	protected function stripStatePair( $marker, $value ) {
-		$this->mFinalizedVarsStripState->addGeneral( $marker, $value );
-	}
-
 	// Public functions for interaction
 	//
 	// Public non-parser functions, accessible for
@@ -263,8 +241,6 @@ class ExtVariables {
 	 * as a default value. The return value, a strip-item then can be inserted into any
 	 * wikitext processed by the same parser. Later that strip-item will be replaced with
 	 * the final var text.
-	 * Note: It's not possible to use the returned strip-item within other stripped text
-	 *       since 'Variables' unstripping will happen before the general unstripping!
 	 *
 	 * @param Parser $parser
 	 * @param string $varName
@@ -273,61 +249,27 @@ class ExtVariables {
 	 * @return string strip-item
 	 */
 	public function requestFinalizedVar( Parser $parser, $varName, $defaultVal = '' ) {
-		if ( $this->mFinalizedVarsStripState === null ) {
-			$this->mFinalizedVarsStripState = new StripState;
-		}
+		// Using the same id namespace for substed and unsubsted vars is more robust
 		$id = count( $this->mFinalizedVars );
-		/*
-		 * strip-item which will be unstripped in self::onInternalParseBeforeSanitize()
-		 * In case the requested final variable has a value in the end, this strip-item
-		 * value will be replaced with that value before unstripping.
-		 */
-		$rnd = Parser::MARKER_PREFIX . "-finalizedvar-{$id}-" . Parser::MARKER_SUFFIX;
+		$marker = Parser::MARKER_PREFIX . "-finalizedvar-{$id}-" . Parser::MARKER_SUFFIX;
+		$this->mFinalizedVars[$marker] = [
+			'name' => trim( $varName ),
+			'default' => trim( $defaultVal )
+		];
 
-		$this->stripStatePair( $rnd, trim( $defaultVal ) );
-		$this->mFinalizedVars[ $rnd ] = trim( $varName );
-
-		return $rnd;
-	}
-
-	/**
-	 * Does the actual insertion of the finalized var values in place of the strip-markers.
-	 *
-	 * @param string $text The text to parse
-	 * @return string The parsed text
-	 */
-	public function insertFinalizedVars( $text ) {
-		// only do this if '#var_final' was used
-		if ( $this->mFinalizedVarsStripState === null ) {
-			return $text;
-		}
-
-		/*
-		 * all vars are final now, check whether requested vars can be inserted for 'finalizedvar' or
-		 * if the default has to be inserted. In any case, adjust the strip item value
-		 */
-		foreach ( $this->mFinalizedVars as $stripStateId => $varName ) {
-			$varVal = $this->getVarValue( $varName, '' );
-			if ( $varVal !== '' ) {
-				// replace strip item value with final variables value or registered default:
-				$this->stripStatePair( $stripStateId, $varVal );
+		$parser->getStripState()->addGeneral( $marker, function () use ( $parser, $marker ) {
+			$varVal = $this->getVarValue(
+				$this->mFinalizedVars[$marker]['name'],
+				$this->mFinalizedVars[$marker]['default'] ?? ''
+			);
+			// Return wikitext for the pre-save transformation pass (subst:#var_final)
+			if ( $parser->getOutputType() === Parser::OT_WIKI ) {
+				return $varVal;
 			}
-		}
+			// Parse wikitext markups
+			return $parser->recursiveTagParse( $varVal );
+		} );
 
-		/**
-		 * Unstrip all '#var_final' strip-markers with their final '#var' or default values.
-		 * This HAS to be done here and can't be done through the normal unstrip process of MW.
-		 * This is because the default value as well as the variables value still have to be
-		 * rendered properly since they may contain links or even category links.
-		 * On the other hand, they can't be parsed with Parser::recursiveTagParse() since this
-		 * would parse wiki templates and functions which are intended as normal text, kind of
-		 * similar to returning a parser functions value with 'noparse' => true.
-		 * Also, there is no way to expand the '#var_final' default value here, just if needed,
-		 * since the output could be an entirely different, e.g. if variables are used.
-		 * This method also takes care of recursive '#var_final' calls
-		 * (within the default value) quite well.
-		 */
-		$text = $this->mFinalizedVarsStripState->unstripGeneral( $text );
-		return $text;
+		return $marker;
 	}
 }

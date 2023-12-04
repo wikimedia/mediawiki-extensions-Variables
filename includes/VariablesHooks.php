@@ -64,17 +64,4 @@ class VariablesHooks {
 		 */
 		$parser->mExtVariables = new ExtVariables();
 	}
-
-	/**
-	 * Used for '#var_final' parser function to insert the final variable values.
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/InternalParseBeforeSanitize
-	 *
-	 * @since 2.0.1
-	 *
-	 * @param Parser $parser
-	 * @param string &$text The text to parse
-	 */
-	public static function onInternalParseBeforeSanitize( Parser $parser, &$text ) {
-		$text = ExtVariables::get( $parser )->insertFinalizedVars( $text );
-	}
 }
