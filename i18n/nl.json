@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Saruman"
+			"Saruman",
+			"McDutchie"
 		]
 	},
-	"variables-desc": "Parserfuncties die het mogelijk maken om met dynamische variabelen te werken in een paginacontext"
+	"variables-desc": "Parserfuncties die het mogelijk maken om met dynamische variabelen te werken in een paginacontext",
+	"variables-config-disabledfunctions": "Maakt het mogelijk om een reeks functies te definiëren die niet beschikbaar moeten zijn binnen de wiki. Laat een eventuele # weg bij het toevoegen van functies.\nBijvoorbeeld: $egVariablesDisabledFunctions = [ 'var_final', 'vardefineecho' ]; // om de functies ‘#var_final’ en ‘#vardefineecho’ uit te schakelen",
+	"variables-config-arevolatile": "Behandelt de parserfuncties #var en #varexists als vluchtig (''volatile'') om onverwacht gedrag als gevolg van sjablooncaching te voorkomen. Bij het uitschakelen hiervan wordt het oude gedrag hersteld."
 }
