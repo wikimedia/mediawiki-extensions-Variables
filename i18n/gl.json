@@ -4,5 +4,7 @@
 			"Toliño"
 		]
 	},
-	"variables-desc": "Funcións analíticas destinadas aos artigos que permiten traballar con variables dinámicas"
+	"variables-desc": "Funcións analíticas destinadas aos artigos que permiten traballar con variables dinámicas",
+	"variables-config-disabledfunctions": "Permite definir unha matriz de funcións que non deberían estar dispoñibles dentro do wiki. Omite calquera carácter «#» ao engadires funcións.\nPor exemplo: $egVariablesDisabledFunctions = [ 'var_final', 'vardefineecho' ]; // para desactivar as funcións «#var_final» e «#vardefineecho».",
+	"variables-config-arevolatile": "Trata as funcións analíticas «#var» e «#varexists» como volátiles para evitar comportamentos inesperados debido ao almacenamento en caché de modelos. Ao desactivares isto, restablécese o comportamento anterior."
 }
