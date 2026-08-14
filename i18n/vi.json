@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"SussyRed2000"
+		]
+	},
+	"variables-desc": "Hàm phân tích cú pháp cho phép làm việc với biến động trong một ngữ cảnh phạm vi bài viết",
+	"variables-config-disabledfunctions": "Cho phép xác định một mảng các hàm không nên có sẵn trong wiki. Bỏ qua bất kỳ dấu # trong khi thêm hàm.\nVí dụ: $egVariablesDisabledFunctions = [ 'var_final', 'vardefineecho' ]; // để vô hiệu hóa các hàm '#var_final' và '#vardefineecho'",
+	"variables-config-arevolatile": "Coi các hàm phân tích cú pháp #var và #varexists là biến động để tránh hành vi không mong muốn do bộ nhớ đệm bản mẫu. Việc vô hiệu hóa điều này sẽ khôi phục lại hành vi cũ."
+}
