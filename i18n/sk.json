@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Wizzard"
+		]
+	},
+	"variables-desc": "Funkcie syntaktického analyzátora umožňujúce prácu s dynamickými premennými v rámci článku",
+	"variables-config-disabledfunctions": "Umožňuje definovať pole funkcií, ktoré nemajú byť na wiki dostupné. Pri pridávaní funkcií vynechajte znak #.\nNapríklad: $egVariablesDisabledFunctions = [ 'var_final', 'vardefineecho' ]; // zakáže funkcie '#var_final' a '#vardefineecho'",
+	"variables-config-arevolatile": "Považuje funkcie syntaktického analyzátora #var a #varexists za volatilné, aby sa predišlo neočakávanému správaniu v dôsledku ukladania šablón do vyrovnávacej pamäte. Vypnutím sa obnoví pôvodné správanie."
+}
